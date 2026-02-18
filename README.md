@@ -443,7 +443,7 @@ Protected components include:
 
 <div align="center">
 
-**© 2025 Yuvraj Singh Kushwah & Subhro Pal. All Rights Reserved.**
+**© 2026 Yuvraj Singh Kushwah & Subhro Pal. All Rights Reserved.**
 
 🎵 **ORBITUNE - Redefining 3D Audio Excellence** 🚀
 
