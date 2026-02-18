@@ -1,0 +1,123 @@
+{
+  "songs": [
+    {
+      "id": "2669cdc6fd87",
+      "title": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+      "artist": "YRF",
+      "album": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+      "duration": 248,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2669cdc6fd87.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/2669cdc6fd87/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2025,
+      "createdAt": "2025-11-21T08:34:06.069864",
+      "updatedAt": "2025-11-21T08:34:06.069864"
+    },
+    {
+      "id": "df56464f5175",
+      "title": "Aditya Rikhari - Paaro (Official Video)",
+      "artist": "Aditya Rikhari",
+      "album": "Aditya Rikhari - Paaro (Official Video)",
+      "duration": 218,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/df56464f5175.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/df56464f5175/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2024,
+      "createdAt": "2025-11-22T07:23:25.159405",
+      "updatedAt": "2025-11-22T07:23:25.159405"
+    },
+    {
+      "id": "c37007570d1a",
+      "title": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+      "artist": "Sony Music India",
+      "album": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+      "duration": 127,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/c37007570d1a.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/c37007570d1a/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2016,
+      "createdAt": "2025-11-22T08:09:43.803012",
+      "updatedAt": "2025-11-22T08:09:43.803012"
+    },
+    {
+      "id": "d3cf54ee15ca",
+      "title": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+      "artist": "Mr. BALI",
+      "album": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+      "duration": 163,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/d3cf54ee15ca.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/d3cf54ee15ca/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2025,
+      "createdAt": "2025-11-22T08:56:59.516852",
+      "updatedAt": "2025-11-22T08:56:59.517359"
+    },
+    {
+      "id": "0951e67dd6c8",
+      "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+      "artist": "T-Series",
+      "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+      "duration": 132,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2024,
+      "createdAt": "2025-11-22T10:06:51.251801",
+      "updatedAt": "2025-11-22T10:06:51.252326"
+    },
+    {
+      "id": "751c2fb02e56",
+      "title": "Chakradhari I Goosebumps guaranteed 🔥🔥 | Vinay Katoch Ft Siddharth | Epic Krishna Song",
+      "artist": "Record Mill",
+      "album": "Chakradhari I Goosebumps guaranteed 🔥🔥 | Vinay Katoch Ft Siddharth | Epic Krishna Song",
+      "duration": 288,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/751c2fb02e56.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/751c2fb02e56/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2024,
+      "createdAt": "2025-11-23T09:45:25.924762",
+      "updatedAt": "2025-11-23T09:45:25.924762"
+    },
+    {
+      "id": "a946bd0ac89a",
+      "title": "Sahiba (Official Music Video) : Aditya Rikhari, Ankita Chhetri | T-Series",
+      "artist": "T-Series",
+      "album": "Sahiba (Official Music Video) : Aditya Rikhari, Ankita Chhetri | T-Series",
+      "duration": 183,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/a946bd0ac89a.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/a946bd0ac89a/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2023,
+      "createdAt": "2025-11-23T09:50:21.064260",
+      "updatedAt": "2025-11-23T09:50:21.064260"
+    },
+    {
+      "id": "2d1a7bd2a8bf",
+      "title": "HASEEN - TALWIINDER, NDS, RIPPY (Official Visualizer)",
+      "artist": "Talwiinder",
+      "album": "HASEEN - TALWIINDER, NDS, RIPPY (Official Visualizer)",
+      "duration": 175,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2d1a7bd2a8bf.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/2d1a7bd2a8bf/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2025,
+      "createdAt": "2025-11-28T05:42:28.702777",
+      "updatedAt": "2025-11-28T05:42:28.702777"
+    },
+    {
+      "id": "b65f9da91993",
+      "title": "Shubh - Cheques (Official Music Video)",
+      "artist": "SHUBH",
+      "album": "Shubh - Cheques (Official Music Video)",
+      "duration": 189,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/b65f9da91993.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/b65f9da91993/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2023,
+      "createdAt": "2025-12-01T07:33:32.555683",
+      "updatedAt": "2025-12-01T07:33:32.555683"
+    }
+  ],
+  "lastId": 0,
+  "processingQueue": []
+}

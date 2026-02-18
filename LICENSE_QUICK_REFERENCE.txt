@@ -1,0 +1,201 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║               ORBITUNE™ - LICENSE QUICK REFERENCE CARD                       ║
+║                                                                              ║
+║                    For Creators & Authorized Personnel                       ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 ESSENTIAL INFORMATION AT A GLANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👥 COPYRIGHT HOLDERS:
+   • Yuvraj Singh Kushwah (yuvrajsk.bpl@gmail.com)
+   • Subhro Pal (shubhropal62@gmail.com)
+
+📄 LICENSE TYPE: PROPRIETARY (NOT Open Source)
+
+📅 EFFECTIVE DATE: December 2025
+
+⚖️  JURISDICTION: Courts of Bhopal, Madhya Pradesh, India
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔒 WHAT'S PROTECTED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ All source code (Backend, Frontend, AI-ML)
+✓ Proprietary algorithms (HRTF, spatial audio, rotation)
+✓ AI implementations (Gemini prompts, intent detection)
+✓ Audio processing parameters (Demucs config, EQ curves)
+✓ UI/UX design and architecture
+✓ Documentation and methodologies
+✓ Configuration and optimization settings
+✓ Trade secrets and confidential information
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🚫 STRICTLY PROHIBITED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ Copying or reproducing any code
+❌ Executing, running, or deploying
+❌ Reverse engineering algorithms
+❌ Creating derivative works
+❌ Commercial use or monetization
+❌ Data mining or parameter extraction
+❌ Sharing or distributing
+❌ Removing copyright notices
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ PERMITTED (Limited Viewing Only)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Academic verification for Jagran Lakecity University
+✓ Technical competence evaluation
+✓ Authenticity verification
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 PENALTIES FOR VIOLATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚖️  Up to ₹20,00,000 (INR) or $150,000 (USD) per violation
+⚖️  Legal fees and court costs
+⚖️  Injunctive relief (immediate shutdown)
+⚖️  Criminal prosecution where applicable
+⚖️  Asset seizure and destruction of copies
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 KEY TRADE SECRETS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔐 Dynamic Distance Variation Formula:
+   distance(θ) = base_distance × (1.125 - 0.475 × cos(θ))
+
+🔐 Htdemucs Configuration:
+   shifts=10, overlap=0.25 (optimized)
+
+🔐 Genre Rotation Speeds:
+   Rock: 2.5 | Pop: 3.0 | EDM: 4.0 | Jazz: 2.0
+
+🔐 Gemini AI Prompt Engineering Structures
+
+🔐 HRTF Processing Coefficients
+
+🔐 Intent Detection Algorithms
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📞 CONTACT INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔴 REPORT VIOLATIONS:
+   → yuvrajsk.bpl@gmail.com (PRIMARY)
+   → shubhropal62@gmail.com (CC)
+
+💼 LICENSING INQUIRIES:
+   → Email both creators
+   → Provide detailed purpose
+   → Await written approval from BOTH
+
+🔗 CREATOR PROFILES:
+
+   Yuvraj Singh Kushwah:
+   📧 yuvrajsk.bpl@gmail.com
+   🔗 linkedin.com/in/yuvraj-singh-kushwah-2b88b8366
+   🌐 web-portfolio-yuvraj.vercel.app
+
+   Subhro Pal:
+   📧 shubhropal62@gmail.com
+   🔗 linkedin.com/in/subhro-pal-b00a60356
+   🌐 subhroportfolio.netlify.app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📄 LEGAL DOCUMENTS OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. LICENSE - Full legal terms (9 sections)
+2. COPYRIGHT - Detailed ownership notice
+3. NOTICE - Legal notice (14 sections)
+4. README.md - Updated with copyright info
+5. LICENSE_IMPLEMENTATION_SUMMARY.md - Complete overview
+
+All source files include copyright headers.
+Both package.json files updated with proper metadata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 RESPONSE TEMPLATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📧 IF SOMEONE ASKS FOR PERMISSION:
+
+   "Thank you for your interest in ORBITUNE. This project is strictly 
+   proprietary. Permission requests must be submitted in writing to 
+   both creators at yuvrajsk.bpl@gmail.com and shubhropal62@gmail.com, 
+   including detailed purpose and intended use. All requests require 
+   approval from BOTH copyright holders."
+
+📧 IF SOMEONE COPIES THE CODE:
+
+   "CEASE AND DESIST NOTICE
+   
+   This is formal notice that you are in violation of the ORBITUNE 
+   proprietary license. You must immediately:
+   1. Cease all use of ORBITUNE code and materials
+   2. Delete all copies in your possession
+   3. Confirm compliance in writing within 7 days
+   
+   Failure to comply will result in legal action seeking damages up to 
+   ₹20,00,000 (INR) or $150,000 (USD) plus legal fees.
+   
+   Contact: yuvrajsk.bpl@gmail.com"
+
+📧 IF SOMEONE ASKS "IS THIS OPEN SOURCE?":
+
+   "No. ORBITUNE is NOT open source. It is strictly proprietary and 
+   confidential. Any presence on code hosting platforms is solely for 
+   academic verification purposes. All rights are reserved. See the 
+   LICENSE file for complete terms."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  IMPORTANT REMINDERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• BOTH creators must approve any permissions
+• Keep all legal notices intact in files
+• Monitor for unauthorized use regularly
+• Document all violations with evidence
+• Respond promptly to infringement
+• Never verbally grant permissions (always in writing)
+• Consult IP attorney for serious violations
+• Keep backups of all legal correspondence
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 MONITORING CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Weekly:
+□ Search GitHub for "ORBITUNE" copies
+□ Check for unauthorized forks
+□ Monitor Google for similar projects
+
+Monthly:
+□ Review access logs (if available)
+□ Check for derivative works
+□ Update contact information if needed
+
+As Needed:
+□ Send cease and desist letters
+□ Consult legal counsel
+□ File takedown notices
+□ Initiate legal proceedings
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+© 2025 Yuvraj Singh Kushwah & Subhro Pal. All Rights Reserved.
+ORBITUNE™ - Protected Innovation
+
+This quick reference card is for authorized use by the copyright holders only.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Last Updated: December 31, 2025
+Version: 1.0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

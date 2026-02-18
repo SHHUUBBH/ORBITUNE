@@ -1,0 +1,31 @@
+# Core Audio Processing Libraries
+demucs==4.0.1
+librosa==0.10.1
+soundfile==0.12.1
+pydub==0.25.1
+scipy==1.12.0
+# numpy is already installed with PyTorch
+
+# YouTube Downloading (Latest version to fix 403 errors)
+yt-dlp>=2025.11.12
+
+# Audio Enhancement & Effects
+noisereduce==3.0.0
+pedalboard==0.9.8
+
+# Web Server (for API communication with Node.js)
+fastapi==0.108.0
+uvicorn[standard]==0.25.0
+python-multipart==0.0.6
+
+# Utilities
+tqdm==4.66.1
+requests==2.31.0
+aiofiles==23.2.1
+python-dotenv==1.0.0
+
+# AI Genre Detection
+google-generativeai>=0.8.0
+
+# PyTorch for Demucs (CPU version - lighter for local dev)
+# Note: torch will be installed separately with specific command

@@ -1,0 +1,112 @@
+{
+  "profiles": {
+    "default-user": {
+      "userId": "default-user",
+      "name": null,
+      "created_at": "2025-11-22T16:23:36.276833",
+      "last_active": "2025-11-22T16:23:36.277342",
+      "listening_history": [],
+      "genre_stats": {},
+      "artist_stats": {},
+      "listening_patterns": {
+        "by_time_of_day": {
+          "morning": 0,
+          "afternoon": 0,
+          "evening": 0,
+          "night": 0
+        },
+        "by_day_period": {
+          "weekday": 0,
+          "weekend": 0,
+          "workday": 0,
+          "weeknight": 0
+        },
+        "total_songs": 0,
+        "total_listen_time": 0
+      },
+      "music_preferences": {
+        "favorite_genres": [],
+        "favorite_artists": [],
+        "mood_preferences": {},
+        "discovery_score": 0.5
+      },
+      "conversation_insights": {
+        "mentioned_preferences": [],
+        "topics_discussed": [],
+        "personality_traits": []
+      }
+    },
+    "test_user_123": {
+      "userId": "test_user_123",
+      "name": null,
+      "created_at": "2025-11-23T12:08:46.450016",
+      "last_active": "2025-11-23T12:08:46.450016",
+      "listening_history": [],
+      "genre_stats": {},
+      "artist_stats": {},
+      "listening_patterns": {
+        "by_time_of_day": {
+          "morning": 0,
+          "afternoon": 0,
+          "evening": 0,
+          "night": 0
+        },
+        "by_day_period": {
+          "weekday": 0,
+          "weekend": 0,
+          "workday": 0,
+          "weeknight": 0
+        },
+        "total_songs": 0,
+        "total_listen_time": 0
+      },
+      "music_preferences": {
+        "favorite_genres": [],
+        "favorite_artists": [],
+        "mood_preferences": {},
+        "discovery_score": 0.5
+      },
+      "conversation_insights": {
+        "mentioned_preferences": [],
+        "topics_discussed": [],
+        "personality_traits": []
+      }
+    },
+    "user_123": {
+      "userId": "user_123",
+      "name": null,
+      "created_at": "2025-11-23T12:14:27.002081",
+      "last_active": "2025-11-23T12:14:27.002081",
+      "listening_history": [],
+      "genre_stats": {},
+      "artist_stats": {},
+      "listening_patterns": {
+        "by_time_of_day": {
+          "morning": 0,
+          "afternoon": 0,
+          "evening": 0,
+          "night": 0
+        },
+        "by_day_period": {
+          "weekday": 0,
+          "weekend": 0,
+          "workday": 0,
+          "weeknight": 0
+        },
+        "total_songs": 0,
+        "total_listen_time": 0
+      },
+      "music_preferences": {
+        "favorite_genres": [],
+        "favorite_artists": [],
+        "mood_preferences": {},
+        "discovery_score": 0.5
+      },
+      "conversation_insights": {
+        "mentioned_preferences": [],
+        "topics_discussed": [],
+        "personality_traits": []
+      }
+    }
+  }
+}
