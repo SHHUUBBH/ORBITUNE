@@ -1,0 +1,268 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                           LEGAL NOTICE                                       ║
+║                                                                              ║
+║                    ORBITUNE™ PROJECT                                         ║
+║               3D Real-like Music Experience                                  ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                              IMPORTANT NOTICE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This document serves as formal notice regarding the proprietary nature, ownership, 
+and legal protections of the ORBITUNE project.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. OWNERSHIP DECLARATION
+━━━━━━━━━━━━━━━━━━━━━━━
+
+The ORBITUNE project, including all source code, documentation, algorithms, designs, 
+methodologies, and related materials, is the EXCLUSIVE PROPRIETARY PROPERTY of:
+
+  👤 Yuvraj Singh Kushwah
+     📧 yuvrajsk.bpl@gmail.com
+     🔗 https://www.linkedin.com/in/yuvraj-singh-kushwah-2b88b8366/
+     🌐 https://web-portfolio-yuvraj.vercel.app/
+
+  👤 Subhro Pal
+     📧 shubhropal62@gmail.com
+     🔗 https://www.linkedin.com/in/subhro-pal-b00a60356/
+     🌐 https://subhroportfolio.netlify.app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+2. THIS IS NOT OPEN SOURCE
+━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚫 CRITICAL: Despite any presence on code hosting platforms (GitHub, GitLab, etc.), 
+            this project is NOT and NEVER HAS BEEN open source.
+
+The project is made viewable SOLELY for academic verification purposes related to 
+submission at Jagran Lakecity University. This limited viewing permission does NOT 
+constitute:
+
+  ❌ An open source license
+  ❌ Permission to use, copy, or modify
+  ❌ Permission to create derivative works
+  ❌ Permission for commercial use
+  ❌ Permission to distribute or share
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3. PROTECTED COMPONENTS
+━━━━━━━━━━━━━━━━━━━━━━━
+
+The following are specifically declared as TRADE SECRETS and CONFIDENTIAL 
+PROPRIETARY INFORMATION:
+
+🔒 Core Algorithms:
+   • Dynamic Distance Variation: distance(θ) = base_distance × (1.125 - 0.475 × cos(θ))
+   • Azimuth calculation for 360° smooth rotation
+   • Time-varying spatial positioning curves
+   • Genre-specific rotation speed profiles
+   • HRTF binaural processing implementation
+
+🔒 AI/ML Systems:
+   • Gemini AI prompt engineering structures
+   • Intent detection algorithms (search vs chat classification)
+   • User profiling and preference extraction
+   • Conversation memory management
+   • Confidence scoring methodology
+
+🔒 Audio Processing:
+   • Htdemucs configuration parameters (shifts=10, overlap=0.25)
+   • Professional reverb implementation
+   • Mastering chain parameters
+   • Genre-aware EQ curves
+   • Stem separation optimization
+
+🔒 Architecture:
+   • Dual-mode interface switching logic (Search/Chat)
+   • MusicContext state management patterns
+   • Async queue management system
+   • Caching strategies
+   • Real-time visualization algorithms
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+4. WHAT YOU MAY NOT DO
+━━━━━━━━━━━━━━━━━━━━━━
+
+Under NO circumstances are you permitted to:
+
+❌ Copy any portion of the code
+❌ Execute, run, compile, or deploy the software
+❌ Install dependencies or set up a development environment
+❌ Reverse engineer any algorithms or implementations
+❌ Extract data, parameters, or configurations
+❌ Create derivative works or similar projects
+❌ Use any concepts, methodologies, or approaches in your own work
+❌ Share, distribute, or publish any part of the project
+❌ Use commercially or for financial gain
+❌ Incorporate into any other software or service
+❌ Claim ownership or authorship
+❌ Remove or modify copyright notices
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5. WHAT YOU MAY DO
+━━━━━━━━━━━━━━━━━━
+
+✓ VIEW the code and documentation for academic verification
+✓ ASSESS technical competence for evaluation purposes
+✓ VERIFY authenticity of submitted materials
+
+That's it. Nothing more.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6. LEGAL CONSEQUENCES OF VIOLATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Violations of these terms will result in:
+
+⚖️  CIVIL LIABILITY:
+    • Statutory damages: Up to ₹20,00,000 (INR) or $150,000 (USD) per violation
+    • Actual damages + profits gained from unauthorized use
+    • Legal fees and court costs
+    • Injunctive relief to cease all infringing activities
+
+⚖️  CRIMINAL PROSECUTION (where applicable):
+    • Copyright infringement (civil and criminal)
+    • Theft of trade secrets
+    • Computer fraud and abuse
+    • Unauthorized access to protected systems
+
+⚖️  IMMEDIATE ACTIONS:
+    • Cease and desist orders
+    • Court injunctions
+    • Asset seizure
+    • Destruction of infringing materials
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7. ACADEMIC CONTEXT
+━━━━━━━━━━━━━━━━━━
+
+This project was developed as a Major Project for submission to:
+
+  🏛️  Jagran Lakecity University
+      Bhopal, Madhya Pradesh, India
+
+The limited viewing permission is granted SOLELY in the context of academic 
+evaluation by authorized university personnel. This does NOT extend to:
+  • Other students
+  • External evaluators not authorized by the university
+  • Any commercial entities
+  • Future academic institutions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8. THIRD-PARTY COMPONENTS
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+This project uses various third-party libraries and frameworks under their respective 
+licenses (listed in package.json and requirements.txt). ONLY those specific components 
+are subject to their original licenses.
+
+The ORBITUNE-specific code, algorithms, implementations, configurations, and 
+methodologies are NOT subject to any third-party license and remain FULLY PROPRIETARY.
+
+Third-party components include:
+  • React, FastAPI, PyTorch, Demucs (subject to their licenses)
+  • Radix UI, Framer Motion (subject to their licenses)
+  • Various npm and pip packages (subject to their licenses)
+
+All custom code, modifications, configurations, and original work remain proprietary.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9. TRADEMARK NOTICE
+━━━━━━━━━━━━━━━━━━
+
+ORBITUNE™ and the ORBITUNE logo are trademarks of Yuvraj Singh Kushwah & Subhro Pal.
+
+Unauthorized use of these trademarks is strictly prohibited and may result in 
+trademark infringement claims independent of copyright claims.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10. REPORTING VIOLATIONS
+━━━━━━━━━━━━━━━━━━━━━━
+
+If you become aware of any unauthorized use, copying, or distribution of this project:
+
+📧 Report to: yuvrajsk.bpl@gmail.com (Primary Contact)
+📧 CC: shubhropal62@gmail.com
+
+Include:
+  • Description of the violation
+  • Location/URL where violation was found
+  • Identity of the violating party (if known)
+  • Any relevant evidence or screenshots
+
+All reports will be investigated and appropriate action taken.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+11. GOVERNING LAW
+━━━━━━━━━━━━━━━━
+
+This notice and all related agreements are governed by:
+
+  ⚖️  Laws of India
+  📍 Jurisdiction: Courts of Bhopal, Madhya Pradesh, India
+
+All disputes shall be resolved in these courts exclusively.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+12. SEVERABILITY
+━━━━━━━━━━━━━━━
+
+If any provision of this notice is found to be unenforceable or invalid, that 
+provision shall be limited or eliminated to the minimum extent necessary so that 
+the remaining provisions remain in full force and effect.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+13. ENTIRE AGREEMENT
+━━━━━━━━━━━━━━━━━━━
+
+This notice, together with the LICENSE file, constitutes the entire agreement 
+regarding the use and access of the ORBITUNE project.
+
+No verbal or written representation not included herein shall be binding.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+14. ACKNOWLEDGMENT
+━━━━━━━━━━━━━━━━━
+
+BY ACCESSING, VIEWING, OR DOWNLOADING ANY PART OF THIS PROJECT, YOU ACKNOWLEDGE:
+
+  ✓ You have read this entire notice
+  ✓ You understand the restrictions and limitations
+  ✓ You agree to be bound by these terms
+  ✓ You understand the severe legal consequences of violations
+  ✓ You will not attempt to circumvent these protections
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DATED: December 31, 2025
+
+© 2025 Yuvraj Singh Kushwah & Subhro Pal
+All Rights Reserved
+
+ORBITUNE™ - Redefining 3D Audio Excellence
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For all inquiries:
+📧 yuvrajsk.bpl@gmail.com
+📧 shubhropal62@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
