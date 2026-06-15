@@ -1,0 +1,18 @@
+# Ignore everything
+/*
+
+# Except backend files needed for Docker Space
+!/BACKEND/
+!/BACKEND/**
+!/AI-ML/
+!/AI-ML/**
+!/Dockerfile
+!/.gitignore
+
+# Exclude venv and other unnecessary files
+AI-ML/venv/
+AI-ML/__pycache__/
+BACKEND/__pycache__/
+BACKEND/src/__pycache__/
+*.log
+*.pyc
