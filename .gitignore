@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Virtual environments
+AI-ML/venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
+# Large media files (use Git LFS if needed)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.psd
+*.pptx
+*.docx
+*.pdf
+
+# Test outputs
+*.out
+*.prof
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node (if any frontend)
+node_modules/
+*.lockb
+
+# Supabase local
+.supabase/

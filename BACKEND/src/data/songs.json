@@ -1,0 +1,58 @@
+{
+  "songs": [
+    {
+      "id": "f1608ba400be",
+      "title": "The Weeknd - Blinding Lights (Official Video)",
+      "artist": "The Weeknd",
+      "album": "The Weeknd - Blinding Lights (Official Video)",
+      "duration": 263,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/f1608ba400be.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/f1608ba400be/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2020,
+      "createdAt": "2026-06-10T09:17:37.733938",
+      "updatedAt": "2026-06-10T09:17:37.733938"
+    },
+    {
+      "id": "e6fe274df9d1",
+      "title": "Post Malone, Swae Lee - Sunflower (Spider-Man: Into the Spider-Verse)",
+      "artist": "Post Malone",
+      "album": "Post Malone, Swae Lee - Sunflower (Spider-Man: Into the Spider-Verse)",
+      "duration": 162,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/e6fe274df9d1.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/e6fe274df9d1/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2018,
+      "createdAt": "2026-06-13T12:53:44.657963",
+      "updatedAt": "2026-06-13T12:53:44.657963"
+    },
+    {
+      "id": "0951e67dd6c8",
+      "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+      "artist": "T-Series",
+      "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+      "duration": 132,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2024,
+      "createdAt": "2026-06-13T13:31:30.039279",
+      "updatedAt": "2026-06-13T13:31:30.039279"
+    },
+    {
+      "id": "2f4318853dfa",
+      "title": "Badshah, J Balvin, Tainy - Voodoo",
+      "artist": "Badshah",
+      "album": "Badshah, J Balvin, Tainy - Voodoo",
+      "duration": 213,
+      "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2f4318853dfa.jpg",
+      "audioUrl": "http://127.0.0.1:8000/media/spatial/2f4318853dfa/orbitune_3d_professional.wav",
+      "genre": null,
+      "releaseYear": 2022,
+      "createdAt": "2026-06-13T14:11:44.485854",
+      "updatedAt": "2026-06-13T14:11:44.485854"
+    }
+  ],
+  "lastId": 0,
+  "processingQueue": []
+}
