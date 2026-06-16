@@ -164,11 +164,11 @@ export default function HomePage() {
     {
       id: "subhro",
       name: "Subhro Pal",
-      role: "UI & Backend Server Dev",
-      description: "Full-stack developer specializing in modern web technologies and server architecture.",
+      role: "Data Science & Analytics Developer",
+      description: "Specializing in building intelligent data pipelines, deploying statistical models, and creating comprehensive BI dashboards.",
       icon: Code,
       gradient: "from-blue-500 to-purple-600",
-      skills: ["React", "Node.js", "UI/UX", "Database Design"],
+      skills: ["Data Analysis", "Machine Learning", "BI Dashboards", "Data Pipelines"],
       photo: "/subhro.jpg",
     },
     {
