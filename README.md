@@ -1,7 +1,7 @@
 ---
 title: ORBITUNE - 3D Audio Experience with AI Companion
 emoji: 🎵
-colorFrom: blueviolet
+colorFrom: indigo
 colorTo: purple
 sdk: docker
 app_port: 8000
