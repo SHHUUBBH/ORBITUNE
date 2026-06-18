@@ -218,46 +218,6 @@ class YouTubeDownloader:
                 print(f"[YTDL] Saved to: {output_dir}")
                 
                 return metadata
-                
-                    # Prepare metadata
-                    metadata = {
-                        'song_id': song_id,
-                        'video_id': video_id,
-                        'title': info.get('title', song_title or 'Unknown'),
-                        'artist': info.get('artist', info.get('creator', info.get('channel', 'Unknown'))),
-                        'album': info.get('album', info.get('title', 'YouTube')),
-                        'duration': info.get('duration', 0),
-                        'duration_string': self._format_duration(info.get('duration', 0)),
-                        'channel': info.get('channel', 'Unknown'),
-                        'upload_date': info.get('upload_date', ''),
-                        'view_count': int(info.get('view_count', 0) or 0),
-                        'like_count': int(info.get('like_count', 0) or 0),
-                        'thumbnail': info.get('thumbnail', ''),
-                        'description': info.get('description', '')[:500],  # First 500 chars
-                        'url': f"https://www.youtube.com/watch?v={video_id}",
-                        'downloaded_at': datetime.now().isoformat(),
-                        'audio_file': str(get_raw_audio_path(song_id)),
-                        'sample_rate': 48000,
-                        'channels': 2,
-                        'format': 'wav',
-                    }
-                    
-                    # Save metadata to JSON
-                    metadata_path = get_metadata_path(song_id)
-                    with open(metadata_path, 'w', encoding='utf-8') as f:
-                        json.dump(metadata, f, indent=2, ensure_ascii=False)
-                    
-                    # Download thumbnail
-                    if info.get('thumbnail'):
-                        self._download_thumbnail(info['thumbnail'], song_id)
-                    
-                    print(f"[OK] Downloaded successfully!")
-                    print(f"[YTDL] Title: {metadata['title']}")
-                    print(f"[YTDL] Artist: {metadata['artist']}")
-                    print(f"[YTDL] Duration: {metadata['duration_string']}")
-                    print(f"[YTDL] Saved to: {output_dir}")
-                    
-                    return metadata
                     
             except Exception as e:
                 error_msg = str(e)

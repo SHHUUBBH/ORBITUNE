@@ -6,8 +6,8 @@ pydub==0.25.1
 scipy==1.12.0
 # numpy is already installed with PyTorch
 
-# YouTube Downloading (Latest version to fix 403 errors)
-yt-dlp>=2025.11.12
+# YouTube Downloading (master branch for latest SSL/extractor fixes)
+yt-dlp @ git+https://github.com/yt-dlp/yt-dlp@master
 
 # Audio Enhancement & Effects
 noisereduce==3.0.0
