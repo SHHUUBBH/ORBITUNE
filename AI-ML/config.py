@@ -122,11 +122,14 @@ YTDLP_OPTIONS = {
     'skip_unavailable_fragments': True,
     'ignoreerrors': False,
     'no_color': False,
+    # SSL/TLS configuration for unstable connections
+    'nocheckcertificate': True,
+    'legacy_server_connect': True,
     # Critical options to bypass YouTube restrictions
     'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
     'extractor_args': {
         'youtube': {
-            'player_client': ['android', 'web'],
+            'player_client': ['android', 'web', 'mweb', 'tv_embedded'],
             'player_skip': ['configs', 'webpage'],
         }
     },
@@ -135,6 +138,30 @@ YTDLP_OPTIONS = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-us,en;q=0.5',
         'Sec-Fetch-Mode': 'navigate',
+    },
+}
+
+# Search-specific yt-dlp options (more aggressive SSL handling)
+YTDLP_SEARCH_OPTIONS = {
+    'quiet': True,
+    'no_warnings': True,
+    'extract_flat': True,
+    'default_search': 'ytsearch',
+    'nocheckcertificate': True,
+    'legacy_server_connect': True,
+    'retries': 5,
+    'fragment_retries': 5,
+    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    'extractor_args': {
+        'youtube': {
+            'player_client': ['android', 'web', 'mweb', 'tv_embedded'],
+            'player_skip': ['configs', 'webpage'],
+        }
+    },
+    'http_headers': {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-us,en;q=0.5',
     },
 }
 
