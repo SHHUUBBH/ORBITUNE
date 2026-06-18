@@ -1,5 +1,5 @@
 import { useMusic } from '@/contexts/MusicContext';
-import heroImage from '@/assets/orbitune-logo.jpg';
+import heroImage from '@/assets/orbitune-hero.jpg';
 import { Music2 } from 'lucide-react';
 import MusicVisualizer from '@/components/MusicVisualizer';
 
