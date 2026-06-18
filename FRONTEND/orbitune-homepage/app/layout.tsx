@@ -23,10 +23,8 @@ export const metadata: Metadata = {
   description: "Revolutionary 16D spatial audio technology with AI-powered mood transformation",
   generator: "v0.app",
   icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-    ],
-    apple: '/favicon.svg',
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 }
 

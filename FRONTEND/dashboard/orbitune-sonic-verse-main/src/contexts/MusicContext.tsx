@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
 import { MusicState, MusicAction, Song, Playlist } from '@/types/music';
-import { mockSongs } from '@/data/mockSongs';
+import { demoTracks } from '@/data/demoTracks';
 import { fetchSongs } from '@/lib/api';
 
 const STORAGE_KEY = 'orbitune-music-state';
@@ -34,7 +34,7 @@ const initialState: MusicState = {
     recentSongs: [],
     favoriteSongs: [],
     playlists: [],
-    allSongs: mockSongs,
+    allSongs: demoTracks,
     currentTime: 0,
     volume: 70,
     ...loadPersistedState(), // Merge persisted data
