@@ -1,3 +1,6 @@
+# Frontend (deployed separately to Vercel)
+FRONTEND/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -7,15 +10,26 @@ __pycache__/
 venv/
 env/
 ENV/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
 
 # Virtual environments
 AI-ML/venv/
+BACKEND/venv/
+venv/
+
+# Environment files
+.env
+.env.local
+.env.*.local
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
@@ -23,42 +37,26 @@ Thumbs.db
 
 # Logs
 *.log
-logs/
+backend_debug.log
+BACKEND/src/backend.log
 
-# Environment
-.env
-.env.local
+# Local storage (generated audio files)
+STORAGE/
+storage/
 
-# Large media files (use Git LFS if needed)
-*.mp4
-*.mov
-*.avi
-*.mkv
-*.psd
-*.pptx
-*.docx
-*.pdf
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
 
-# Test outputs
-*.out
-*.prof
-
-# Build
+# Distribution / packaging
 dist/
 build/
 *.egg-info/
 
-# Cache
-.pytest_cache/
-.coverage
-htmlcov/
+# Jupyter
+.ipynb_checkpoints/
 
-# Node (if any frontend)
-node_modules/
-*.lockb
-
-# Supabase local
-.supabase/
-
-# Generated audio files
-STORAGE/
+# HF Spaces specific
+.huggingface/
