@@ -77,6 +77,12 @@ app.include_router(songs_router, prefix="/api")
 app.include_router(chatbot_router, prefix="/api")
 
 
+@app.get("/")
+async def root():
+    """Root endpoint - required by HF Spaces health check."""
+    return {"status": "ok"}
+
+
 @app.get("/health")
 async def health_check() -> dict:
     """Simple health endpoint."""
