@@ -498,21 +498,25 @@ class YouTubeDownloader:
         """Fallback: download audio via Piped API when yt-dlp fails."""
         PIPED_INSTANCES = [
             'https://pipedapi.kavin.rocks',
-            'https://pipedapi.r4fo.com',
-            'https://api.piped.yt',
-            'https://pipedapi.darkness.services',
+            'https://watchapi.whatever.social',
+            'https://pipedapi.adminforge.de',
+            'https://piped-api.garudalinux.org',
+            'https://pipedapi.in.projectsegfau.lt',
+            'https://api.piped.projectsegfau.lt',
         ]
         for api_url in PIPED_INSTANCES:
             try:
                 print(f"[PIPED] Trying {api_url}...")
                 resp = requests.get(f"{api_url}/streams/{video_id}", timeout=15)
                 if resp.status_code != 200:
+                    print(f"[PIPED] {api_url} returned {resp.status_code}")
                     continue
                 data = resp.json()
 
                 # Find best audio stream
                 audio_streams = data.get('audioStreams', [])
                 if not audio_streams:
+                    print(f"[PIPED] {api_url} returned no audio streams")
                     continue
                 # Pick highest bitrate audio
                 best = max(audio_streams, key=lambda s: s.get('bitrate', 0))
@@ -525,13 +529,18 @@ class YouTubeDownloader:
                 audio_resp.raise_for_status()
 
                 # Save as m4a/webm (whatever Piped provides)
-                ext = best.get('mimeType', 'audio/mp4').split('/')[-1].replace('mp4', 'm4a')
+                mime = best.get('mimeType', 'audio/mp4')
+                ext = 'm4a' if 'mp4' in mime else 'webm'
                 audio_path = output_dir / f'original.{ext}'
                 with open(audio_path, 'wb') as f:
                     for chunk in audio_resp.iter_content(chunk_size=8192):
                         f.write(chunk)
 
                 file_size = audio_path.stat().st_size
+                if file_size < 100000:  # Less than 100KB is probably an error page
+                    print(f"[PIPED] Download too small ({file_size}B), likely error")
+                    audio_path.unlink()
+                    continue
                 print(f"[PIPED] Downloaded {file_size / 1024 / 1024:.1f}MB")
 
                 # Build metadata
@@ -576,7 +585,102 @@ class YouTubeDownloader:
                 print(f"[PIPED] Failed on {api_url}: {e}")
                 continue
 
-        print("[PIPED] All Piped instances failed")
+        # Last resort: try cobalt.tools API
+        print("[COBALT] Trying cobalt.tools API...")
+        return self._download_via_cobalt(video_id, song_id, output_dir)
+
+    def _download_via_cobalt(self, video_id: str, song_id: str, output_dir: Path) -> Optional[Dict]:
+        """Download audio via cobalt.tools API as last resort."""
+        cobalt_apis = [
+            'https://api.cobalt.tools',
+            'https://cobalt-api.kwiatekmiki.com',
+        ]
+        youtube_url = f"https://www.youtube.com/watch?v={video_id}"
+        for api_url in cobalt_apis:
+            try:
+                print(f"[COBALT] Trying {api_url}...")
+                resp = requests.post(
+                    f"{api_url}/",
+                    json={
+                        'url': youtube_url,
+                        'downloadMode': 'audio',
+                        'audioFormat': 'mp3',
+                    },
+                    headers={
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    timeout=30,
+                )
+                if resp.status_code != 200:
+                    print(f"[COBALT] {api_url} returned {resp.status_code}: {resp.text[:200]}")
+                    continue
+                data = resp.json()
+
+                download_url = data.get('url', '') or data.get('status', '')
+                if not download_url or not download_url.startswith('http'):
+                    # cobalt may return download as a different field
+                    download_url = data.get('url', data.get('redirect', ''))
+                    if not download_url or not download_url.startswith('http'):
+                        print(f"[COBALT] No download URL in response: {list(data.keys())}")
+                        continue
+
+                print(f"[COBALT] Downloading audio...")
+                audio_resp = requests.get(download_url, stream=True, timeout=120)
+                audio_resp.raise_for_status()
+
+                audio_path = output_dir / 'original.mp3'
+                with open(audio_path, 'wb') as f:
+                    for chunk in audio_resp.iter_content(chunk_size=8192):
+                        f.write(chunk)
+
+                file_size = audio_path.stat().st_size
+                if file_size < 100000:
+                    print(f"[COBALT] Download too small ({file_size}B)")
+                    audio_path.unlink()
+                    continue
+                print(f"[COBALT] Downloaded {file_size / 1024 / 1024:.1f}MB")
+
+                title = data.get('title', 'Unknown')
+                artist = data.get('artist', data.get('uploader', 'Unknown'))
+                thumbnail_url = data.get('thumbnail', '')
+
+                metadata = {
+                    'song_id': song_id,
+                    'video_id': video_id,
+                    'title': title,
+                    'artist': artist,
+                    'album': 'YouTube',
+                    'duration': data.get('duration', 0),
+                    'duration_string': self._format_duration(data.get('duration', 0)),
+                    'channel': artist,
+                    'upload_date': '',
+                    'view_count': 0,
+                    'like_count': 0,
+                    'thumbnail': thumbnail_url,
+                    'description': '',
+                    'url': youtube_url,
+                    'downloaded_at': datetime.now().isoformat(),
+                    'audio_file': str(get_raw_audio_path(song_id)),
+                    'sample_rate': 44100,
+                    'channels': 2,
+                    'format': 'mp3',
+                }
+
+                metadata_path = get_metadata_path(song_id)
+                with open(metadata_path, 'w', encoding='utf-8') as f:
+                    json.dump(metadata, f, indent=2, ensure_ascii=False)
+
+                if thumbnail_url:
+                    self._download_thumbnail(thumbnail_url, song_id)
+
+                print(f"[OK] Cobalt download successful: {title} - {artist}")
+                return metadata
+
+            except Exception as e:
+                print(f"[COBALT] Failed on {api_url}: {e}")
+                continue
+
         return None
     
     def _download_thumbnail(self, thumbnail_url: str, song_id: str) -> bool:
