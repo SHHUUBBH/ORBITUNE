@@ -17,7 +17,6 @@ pip-delete-this-directory.txt
 # Virtual environments
 AI-ML/venv/
 BACKEND/venv/
-venv/
 
 # Environment files
 .env
@@ -29,7 +28,6 @@ venv/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
@@ -37,12 +35,6 @@ Thumbs.db
 
 # Logs
 *.log
-backend_debug.log
-BACKEND/src/backend.log
-
-# Local storage (generated audio files)
-STORAGE/
-storage/
 
 # Test / coverage
 .coverage
@@ -61,56 +53,5 @@ build/
 # HF Spaces specific
 .huggingface/
 
-# Dev docs (auto-generated)
-AI-ML/*.md
-
-# Dev/test scripts (local only, not needed for deployment)
-AI-ML/test_gpu.py
-AI-ML/test_process_short.py
-AI-ML/test_improvements.py
-AI-ML/diagnose_*.py
-AI-ML/analyze_*.py
-AI-ML/check_*.py
-AI-ML/analyze_output.txt
-add_*.py
-fix_*.py
-modify_*.py
-debug_*.py
-check_space.py
-test_youtube.py
-update_invidious_fallback.py
-fix_universal_fallback.py
-
-# Root docs/scripts (not needed for deployment)
-BACKEND/BACKEND/
-BACKEND/data/
-*.docx
-*.pdf
-*.pptx
-*.txt
-!requirements.txt
-!LICENSE
-!NOTICE
-!COPYRIGHT
-START.ps1
-CHANGES_SUMMARY.md
-CHATBOT_FIX_SUMMARY.md
-FINAL_UPDATE_SUMMARY.md
-IMPLEMENTATION_SUMMARY.md
-LICENSE_IMPLEMENTATION_SUMMARY.md
-LICENSE_QUICK_REFERENCE.txt
-PROJECT_FIXED.md
-QUICK_START.md
-README_CHATBOT.md
-RUN_GUIDE.md
-STRICT_MODE_UPDATE.md
-UI_FIXES_COMPLETE.md
-USAGE_GUIDE.md
-START_CHATBOT.md
-HOW_TO_USE_CHATBOT.md
-SUPABASE_SCHEMA.sql
-
-# Old/reference code
-AI-ML (Old)/
-BACKEND (Old)/
-README_HF.md
+# Temp Office files
+~$*.docx
