@@ -438,12 +438,16 @@ class YouTubeDownloader:
                     import time
                     time.sleep(attempt * 3)
                     continue
-                # yt-dlp failed completely, try Piped download fallback
-                print(f"[YTDL] yt-dlp failed, trying Piped download fallback...")
+                # yt-dlp failed completely, try Invidious/Piped download fallback
+                print(f"[YTDL] yt-dlp failed, trying Invidious download fallback...")
+                invidious_result = self._download_via_invidious(video_id, song_id, output_dir)
+                if invidious_result:
+                    return invidious_result
+                print(f"[YTDL] Invidious failed, trying Piped...")
                 piped_result = self._download_via_piped(video_id, song_id, output_dir)
                 if piped_result:
                     return piped_result
-                print(f"[ERROR] All download methods failed: {e}")
+                print(f"[YTDL] All download methods failed for {video_id}")
                 return None
         
         # Prepare metadata (only reached if yt-dlp succeeded)
@@ -493,6 +497,126 @@ class YouTubeDownloader:
                 print(f"\r[YTDL] Downloading: {percent:.1f}%", end='', flush=True)
         elif d['status'] == 'finished':
             print("\n[OK] Download complete, converting to WAV...")
+
+    def _download_via_invidious(self, video_id: str, song_id: str, output_dir: Path) -> Optional[Dict]:
+        """Download audio via Invidious API - tries /latest_version endpoint for audio-only stream."""
+        INVIDIOUS_INSTANCES = [
+            'https://inv.tux.pizza',
+            'https://invidious.privacyredirect.com',
+            'https://yewtu.be',
+            'https://vid.puffyan.us',
+            'https://invidious.lunar.icu',
+            'https://iv.ggtyler.dev',
+            'https://invidious.protokoll-11.dev',
+            'https://invidious.perennialte.ch',
+            'https://yt.artemislena.eu',
+            'https://inv.nadeko.net',
+        ]
+        for instance in INVIDIOUS_INSTANCES:
+            try:
+                # First get video info
+                print(f"[INVIDIOUS] Trying {instance}...")
+                info_resp = requests.get(f"{instance}/api/v1/videos/{video_id}", timeout=15)
+                if info_resp.status_code != 200:
+                    print(f"[INVIDIOUS] {instance} returned {info_resp.status_code}")
+                    continue
+                info = info_resp.json()
+
+                title = info.get('title', 'Unknown')
+                author = info.get('author', 'Unknown')
+                duration = info.get('lengthSeconds', 0)
+                thumbnail = info.get('authorThumbnails', [{}])
+                thumb_url = thumbnail[-1]['url'] if thumbnail else info.get('thumbnailUrl', [''])[0] if info.get('thumbnailUrl') else ''
+
+                # Get audio-only stream (itag 140 = m4a 128kbps, itag 251 = opus)
+                adaptive = info.get('adaptiveFormats', [])
+                audio_streams = [s for s in adaptive if s.get('type', '').startswith('audio/')]
+                if not audio_streams:
+                    print(f"[INVIDIOUS] {instance} no audio streams")
+                    continue
+
+                # Pick best audio stream
+                best = max(audio_streams, key=lambda s: s.get('bitrate', 0))
+                stream_url = best.get('url', '')
+                if not stream_url:
+                    # Try with /latest_version endpoint
+                    itag = best.get('itag', 140)
+                    stream_url = f"{instance}/latest_version?id={video_id}&itag={itag}"
+                
+                if not stream_url:
+                    continue
+
+                # Add full URL if relative
+                if stream_url.startswith('/'):
+                    stream_url = instance + stream_url
+
+                print(f"[INVIDIOUS] Downloading audio from {instance}...")
+                audio_resp = requests.get(stream_url, stream=True, timeout=120, allow_redirects=True)
+                if audio_resp.status_code != 200:
+                    print(f"[INVIDIOUS] Stream returned {audio_resp.status_code}")
+                    continue
+
+                mime = best.get('type', 'audio/mp4')
+                ext = 'm4a' if 'mp4' in mime or 'audio' in mime else 'webm'
+                if 'opus' in mime:
+                    ext = 'webm'
+                audio_path = output_dir / f'original.{ext}'
+
+                total = 0
+                with open(audio_path, 'wb') as f:
+                    for chunk in audio_resp.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                        total += len(chunk)
+
+                if total < 100000:
+                    print(f"[INVIDIOUS] Download too small ({total}B), likely error")
+                    audio_path.unlink()
+                    continue
+
+                print(f"[INVIDIOUS] Downloaded {total / 1024 / 1024:.1f}MB")
+
+                # Format duration
+                mins = duration // 60
+                secs = duration % 60
+                dur_str = f"{mins}:{secs:02d}"
+
+                metadata = {
+                    'song_id': song_id,
+                    'video_id': video_id,
+                    'title': title,
+                    'artist': author,
+                    'album': author,
+                    'duration': duration,
+                    'duration_string': dur_str,
+                    'channel': author,
+                    'upload_date': info.get('publishedText', ''),
+                    'view_count': int(info.get('viewCount', 0) or 0),
+                    'like_count': int(info.get('likeCount', 0) or 0),
+                    'thumbnail': thumb_url,
+                    'description': (info.get('description', '') or '')[:500],
+                    'url': f"https://www.youtube.com/watch?v={video_id}",
+                    'downloaded_at': datetime.now().isoformat(),
+                    'audio_file': str(get_raw_audio_path(song_id)),
+                    'sample_rate': 48000,
+                    'channels': 2,
+                    'format': ext,
+                }
+
+                metadata_path = get_metadata_path(song_id)
+                with open(metadata_path, 'w', encoding='utf-8') as f:
+                    json.dump(metadata, f, indent=2, ensure_ascii=False)
+
+                if thumb_url:
+                    self._download_thumbnail(thumb_url, song_id)
+
+                print(f"[OK] Invidious download successful: {title} - {author}")
+                return metadata
+
+            except Exception as e:
+                print(f"[INVIDIOUS] Failed on {instance}: {e}")
+                continue
+
+        return None
 
     def _download_via_piped(self, video_id: str, song_id: str, output_dir: Path) -> Optional[Dict]:
         """Fallback: download audio via Piped API when yt-dlp fails."""
