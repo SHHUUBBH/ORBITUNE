@@ -301,6 +301,22 @@ class YouTubeDownloader:
             print(f"[YTDL] Fast path: demo keyword detected, returning demo tracks")
             return self._search_demo_fallback(query, max_results)
         
+        # HF Spaces: skip yt-dlp (always fails), try Piped/Invidious then demo
+        import os
+        is_hf = os.environ.get('HF_SPACES') or os.environ.get('SPACE_ID') or 'huggingface.co' in os.environ.get('HOSTNAME', '')
+        
+        if is_hf:
+            print("[YTDL] HF Spaces: skipping yt-dlp, trying Piped...")
+            piped_results = self._search_piped(query, max_results)
+            if piped_results:
+                return piped_results
+            print("[YTDL] Piped failed, trying Invidious...")
+            invidious_results = self._search_invidious(query, max_results)
+            if invidious_results:
+                return invidious_results
+            print("[YTDL] All online search failed (HF Spaces blocks YouTube access)")
+            return []
+        
         # Use search-specific options from config
         ydl_opts = YTDLP_SEARCH_OPTIONS.copy()
         
