@@ -88,6 +88,7 @@ BACKEND/data/
 *.pdf
 *.pptx
 *.txt
+!requirements.txt
 !LICENSE
 !NOTICE
 !COPYRIGHT

@@ -125,8 +125,85 @@ class YouTubeDownloader:
                 continue
         
         print("[ERROR] All Invidious instances failed")
+        print("[YTDL] Trying Piped fallback...")
+        piped_results = self._search_piped(query, max_results)
+        if piped_results:
+            return piped_results
         print("[YTDL] Trying demo fallback...")
         return self._search_demo_fallback(query, max_results)
+
+
+    def _search_piped(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
+        """
+        Fallback search using public Piped API instances.
+        Piped is more reliable than Invidious on restricted networks.
+        """
+        print(f"[YTDL] Fallback search via Piped for: '{query}'")
+        
+        piped_instances = [
+            'https://pipedapi.kavin.rocks',
+            'https://pipedapi.adminforge.de',
+            'https://pipedapi.r4fo.com',
+            'https://api.piped.yt',
+            'https://pipedapi.ggtyler.dev',
+            'https://pipedapi.moomoo.me',
+            'https://api-piped.mha.fi',
+            'https://pipedapi.leptons.xyz',
+        ]
+        
+        for instance in piped_instances:
+            try:
+                url = f"{instance}/search"
+                params = {
+                    'q': query,
+                    'filter': 'videos',
+                }
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                    'Accept': 'application/json',
+                }
+                response = requests.get(url, params=params, headers=headers, timeout=10)
+                response.raise_for_status()
+                data = response.json()
+                
+                items = data.get('items', [])
+                results = []
+                for item in items[:max_results]:
+                    if item.get('type') != 'STREAMS' and item.get('type') != 'video':
+                        continue
+                    video_id = item.get('url', '').replace('/watch?v=', '')
+                    if not video_id:
+                        continue
+                    
+                    duration = item.get('duration', 0)
+                    if duration and duration > MAX_SONG_DURATION:
+                        continue
+                    
+                    song_id = self.generate_song_id(video_id)
+                    
+                    result = {
+                        'song_id': song_id,
+                        'video_id': video_id,
+                        'title': item.get('title', 'Unknown'),
+                        'channel': item.get('uploaderName', 'Unknown'),
+                        'duration': duration or 0,
+                        'duration_string': self._format_duration(duration),
+                        'thumbnail': item.get('thumbnailUrl', ''),
+                        'url': f"https://www.youtube.com/watch?v={video_id}",
+                        'view_count': int(item.get('views', 0) or 0),
+                    }
+                    results.append(result)
+                
+                if results:
+                    print(f"[OK] Piped search found {len(results)} results via {instance}")
+                    return results
+                    
+            except Exception as e:
+                print(f"[WARN] Piped instance {instance} failed: {e}")
+                continue
+        
+        print("[ERROR] All Piped instances failed")
+        return []
 
 
     def _search_demo_fallback(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
@@ -222,12 +299,6 @@ class YouTubeDownloader:
         query_lower = query.lower()
         if any(keyword in query_lower for keyword in demo_keywords):
             print(f"[YTDL] Fast path: demo keyword detected, returning demo tracks")
-            return self._search_demo_fallback(query, max_results)
-        
-        # Check if running on HF Spaces (detect via environment variable)
-        import os
-        if os.environ.get('HF_SPACES') or os.environ.get('SPACE_ID') or 'huggingface.co' in os.environ.get('HOSTNAME', ''):
-            print("[YTDL] HF Spaces detected, using demo tracks (yt-dlp and Invidious blocked)...")
             return self._search_demo_fallback(query, max_results)
         
         # Use search-specific options from config
