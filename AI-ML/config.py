@@ -24,7 +24,6 @@ Centralized settings for all audio processing operations
 """
 
 import os
-import torch
 from pathlib import Path
 
 # Try to load .env file if it exists
@@ -60,26 +59,34 @@ for directory in [RAW_AUDIO_DIR, PROCESSED_AUDIO_DIR, CACHE_DIR, THUMBNAILS_DIR,
     directory.mkdir(parents=True, exist_ok=True)
 
 # =============================================================================
-# GPU/DEVICE CONFIGURATION
+# GPU/DEVICE CONFIGURATION (lazy-loaded to avoid OOM on startup)
 # =============================================================================
-# Auto-detect best device (GPU if available, else CPU)
-USE_GPU = torch.cuda.is_available()
-DEVICE = torch.device('cuda' if USE_GPU else 'cpu')
+USE_GPU = False
+DEVICE = None
+GPU_NAME = "CPU"
+GPU_MEMORY_GB = 0
 
-# GPU Memory management
-if USE_GPU:
-    GPU_NAME = torch.cuda.get_device_name(0)
-    GPU_MEMORY_GB = torch.cuda.get_device_properties(0).total_memory / (1024**3)
-    # Reserve some memory for system
-    MAX_GPU_MEMORY_USAGE = 0.9  # Use max 90% of GPU memory
-else:
-    GPU_NAME = "CPU"
-    GPU_MEMORY_GB = 0
-
-print(f"[DEVICE] Device: {DEVICE}")
-print(f"[DEVICE] Using: {GPU_NAME}")
-if USE_GPU:
-    print(f"[DEVICE] GPU Memory: {GPU_MEMORY_GB:.2f} GB")
+def _ensure_device():
+    """Lazily detect GPU/CPU - only loads PyTorch when actually needed."""
+    global USE_GPU, DEVICE, GPU_NAME, GPU_MEMORY_GB, DEMUCS_SHIFTS
+    if DEVICE is not None:
+        return
+    import torch
+    USE_GPU = torch.cuda.is_available()
+    DEVICE = torch.device('cuda' if USE_GPU else 'cpu')
+    if USE_GPU:
+        GPU_NAME = torch.cuda.get_device_name(0)
+        GPU_MEMORY_GB = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+        DEMUCS_SHIFTS = 10  # High quality for GPU
+        print(f"[DEVICE] Device: {DEVICE}")
+        print(f"[DEVICE] Using: {GPU_NAME}")
+        print(f"[DEVICE] GPU Memory: {GPU_MEMORY_GB:.2f} GB")
+    else:
+        GPU_NAME = "CPU"
+        GPU_MEMORY_GB = 0
+        DEMUCS_SHIFTS = 1  # Fast for CPU
+        print(f"[DEVICE] Device: {DEVICE}")
+        print(f"[DEVICE] Using: CPU")
 
 # =============================================================================
 # AUDIO QUALITY SETTINGS (HIGHEST QUALITY)
@@ -101,7 +108,7 @@ YOUTUBE_SEARCH_MAX_RESULTS = 10
 YOUTUBE_MAX_RETRIES = 3
 YOUTUBE_RETRY_SLEEP = 2  # seconds between retries
 
-# yt-dlp options for best quality with YouTube bypass
+# yt-dlp options for best quality with YouTube bypass (aggressive SSL for HF Spaces)
 YTDLP_OPTIONS = {
     'format': YOUTUBE_AUDIO_QUALITY,
     'postprocessors': [{
@@ -117,31 +124,36 @@ YTDLP_OPTIONS = {
     'no_warnings': False,
     'extract_audio': True,
     # Retry and error handling
-    'retries': YOUTUBE_MAX_RETRIES,
-    'fragment_retries': YOUTUBE_MAX_RETRIES,
+    'retries': 10,
+    'fragment_retries': 10,
     'skip_unavailable_fragments': True,
     'ignoreerrors': False,
     'no_color': False,
-    # SSL/TLS configuration for unstable connections
+    # SSL/TLS configuration for unstable connections (HF Spaces)
     'nocheckcertificate': True,
     'legacy_server_connect': True,
+    'force_ipv4': True,
+    'socket_timeout': 30,
+    'source_address': '0.0.0.0',
     # Critical options to bypass YouTube restrictions
     'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
     'extractor_args': {
         'youtube': {
-            'player_client': ['android', 'web', 'mweb', 'tv_embedded'],
+            'player_client': ['android', 'web', 'mweb', 'tv_embedded', 'ios'],
             'player_skip': ['configs', 'webpage'],
+            'skip': ['dash', 'hls', 'translated_subs'],
         }
     },
     'http_headers': {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-us,en;q=0.5',
-        'Sec-Fetch-Mode': 'navigate',
+        'Accept-Encoding': 'gzip, deflate',
+        'Connection': 'keep-alive',
     },
 }
 
-# Search-specific yt-dlp options (more aggressive SSL handling)
+# Search-specific yt-dlp options (more aggressive SSL handling for HF Spaces)
 YTDLP_SEARCH_OPTIONS = {
     'quiet': True,
     'no_warnings': True,
@@ -149,19 +161,25 @@ YTDLP_SEARCH_OPTIONS = {
     'default_search': 'ytsearch',
     'nocheckcertificate': True,
     'legacy_server_connect': True,
-    'retries': 5,
-    'fragment_retries': 5,
+    'retries': 10,
+    'fragment_retries': 10,
+    'force_ipv4': True,
+    'socket_timeout': 30,
+    'source_address': '0.0.0.0',
     'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
     'extractor_args': {
         'youtube': {
-            'player_client': ['android', 'web', 'mweb', 'tv_embedded'],
+            'player_client': ['android', 'web', 'mweb', 'tv_embedded', 'ios'],
             'player_skip': ['configs', 'webpage'],
+            'skip': ['dash', 'hls', 'translated_subs'],
         }
     },
     'http_headers': {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-us,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate',
+        'Connection': 'keep-alive',
     },
 }
 
@@ -173,7 +191,7 @@ DEMUCS_MODEL = 'htdemucs'  # Highest quality model (Hybrid Transformer Demucs)
 # htdemucs = Best overall quality
 # htdemucs_ft = Fine-tuned version (slightly better on some songs)
 
-DEMUCS_SHIFTS = 10 if USE_GPU else 1  # More shifts = better quality but slower
+DEMUCS_SHIFTS = 1  # CPU default; GPU override happens when _ensure_device() is called
 # Shifts: Number of random shifts for equivariant stabilization
 # 1 = Fast, lower quality
 # 5 = Good balance

@@ -45,18 +45,20 @@ from routes.chatbot import router as chatbot_router  # type: ignore
 
 app = FastAPI(title="ORBITUNE API", version="1.0.0")
 
-# CORS so homepage (3000) and dashboard (5173) can call the API
+# CORS so homepage (3000), dashboard (5173), and Vercel can call the API
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://orbitune-sonic-verse.vercel.app",
+    "https://orbitune-homepage.vercel.app",
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):(3000|5173)",
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):(3000|5173)|https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

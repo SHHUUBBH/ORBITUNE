@@ -13,11 +13,11 @@ sys.path.append(str(Path(__file__).parent.parent))
 from config import GEMINI_API_KEY, GEMINI_MODEL, get_metadata_path
 
 try:
-    import google.generativeai as genai
+    from google import genai
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
-    print("⚠️  google-generativeai not installed. Genre detection disabled.")
+    print("⚠️  google-genai not installed. Genre detection disabled.")
 
 
 class GenreDetector:
@@ -128,8 +128,7 @@ class GenreDetector:
         
         if self.api_available:
             try:
-                genai.configure(api_key=GEMINI_API_KEY)
-                self.model = genai.GenerativeModel(GEMINI_MODEL)
+                self.client = genai.Client(api_key=GEMINI_API_KEY)
                 print("[OK] Gemini AI Genre Detector initialized")
             except Exception as e:
                 print(f"[WARN] Gemini API error: {e}")
@@ -196,7 +195,7 @@ Return ONLY a JSON object with this exact format:
 Choose the single best-fitting genre. Confidence should be 0.0-1.0."""
 
         try:
-            response = self.model.generate_content(prompt)
+            response = self.client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
             text = response.text.strip()
             
             # Extract JSON from response

@@ -15,12 +15,12 @@ if str(BASE_DIR) not in sys.path:
 
 # Gemini AI
 try:
-    import google.generativeai as genai
+    from google import genai
     from config import GEMINI_API_KEY
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
-    print("⚠️  google-generativeai not installed")
+    print("⚠️  google-genai not installed")
 
 from chatbot.utils import response_cache, hash_text, get_time_of_day, extract_mood
 
@@ -43,9 +43,8 @@ class ResponseGenerator:
         
         if GEMINI_AVAILABLE and GEMINI_API_KEY:
             try:
-                genai.configure(api_key=GEMINI_API_KEY)
-                # Use Gemini 2.0 Flash
-                self.model = genai.GenerativeModel('models/gemini-2.0-flash')
+                self.client = genai.Client(api_key=GEMINI_API_KEY)
+                self.model_name = 'gemini-2.0-flash'
                 self.api_available = True
                 print("[OK] Gemini 2.0 Flash initialized for chatbot")
             except Exception as e:
@@ -168,14 +167,15 @@ class ResponseGenerator:
             full_prompt = f"{system_prompt}\n\nUser: {user_message}\n\nYou (respond as ORBITUNE's buddy):"
             
             # Generate with Gemini
-            response = self.model.generate_content(
-                full_prompt,
-                generation_config={
-                    'temperature': 0.9,  # Creative and varied
-                    'max_output_tokens': 150,  # Keep it short
-                    'top_p': 0.95,
-                    'top_k': 40
-                }
+            response = self.client.models.generate_content(
+                model=self.model_name,
+                contents=full_prompt,
+                config=genai.types.GenerateContentConfig(
+                    temperature=0.9,
+                    max_output_tokens=150,
+                    top_p=0.95,
+                    top_k=40,
+                ),
             )
             
             bot_response = response.text.strip()

@@ -34,11 +34,13 @@ import sys
 if str(AI_ML_DIR) not in sys.path:
     sys.path.append(str(AI_ML_DIR))
 
-# Import AI-ML config + pipeline pieces
+# Import AI-ML config (lightweight)
 import config  # type: ignore
-from audio_processor.youtube_downloader import YouTubeDownloader  # type: ignore
-from audio_processor.source_separator import SourceSeparator  # type: ignore
-from audio_processor.orbitune_final import ORBITUNE_Professional  # type: ignore
+
+# Lazy imports: heavy ML modules (torch/demucs) loaded only when needed
+YouTubeDownloader = None
+SourceSeparator = None
+ORBITUNE_Professional = None
 
 # Import Supabase storage utility
 from services.storage import upload_audio_file, insert_song_metadata, fetch_all_songs, _get_client
@@ -173,23 +175,32 @@ def search_songs(query: str) -> List[YouTubeSearchResult]:
     return results
 
 
-def _get_downloader() -> YouTubeDownloader:
-    global _downloader
+def _get_downloader():
+    global _downloader, YouTubeDownloader
     if _downloader is None:
+        if YouTubeDownloader is None:
+            from audio_processor.youtube_downloader import YouTubeDownloader as YD  # type: ignore
+            YouTubeDownloader = YD
         _downloader = YouTubeDownloader()
     return _downloader
 
 
-def _get_separator() -> SourceSeparator:
-    global _separator
+def _get_separator():
+    global _separator, SourceSeparator
     if _separator is None:
+        if SourceSeparator is None:
+            from audio_processor.source_separator import SourceSeparator as SS  # type: ignore
+            SourceSeparator = SS
         _separator = SourceSeparator()
     return _separator
 
 
-def _get_processor() -> ORBITUNE_Professional:
-    global _processor
+def _get_processor():
+    global _processor, ORBITUNE_Professional
     if _processor is None:
+        if ORBITUNE_Professional is None:
+            from audio_processor.orbitune_final import ORBITUNE_Professional as OP  # type: ignore
+            ORBITUNE_Professional = OP
         _processor = ORBITUNE_Professional(device=config.DEVICE)
     return _processor
 
