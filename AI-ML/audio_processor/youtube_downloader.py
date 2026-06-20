@@ -420,6 +420,7 @@ class YouTubeDownloader:
         
         # Retry logic for SSL/connection issues
         max_attempts = 3
+        info = None
         for attempt in range(1, max_attempts + 1):
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -429,57 +430,59 @@ class YouTubeDownloader:
                         f"https://www.youtube.com/watch?v={video_id}",
                         download=True
                     )
-                
-                # Prepare metadata
-                metadata = {
-                    'song_id': song_id,
-                    'video_id': video_id,
-                    'title': info.get('title', song_title or 'Unknown'),
-                    'artist': info.get('artist', info.get('creator', info.get('channel', 'Unknown'))),
-                    'album': info.get('album', info.get('title', 'YouTube')),
-                    'duration': info.get('duration', 0),
-                    'duration_string': self._format_duration(info.get('duration', 0)),
-                    'channel': info.get('channel', 'Unknown'),
-                    'upload_date': info.get('upload_date', ''),
-                    'view_count': int(info.get('view_count', 0) or 0),
-                    'like_count': int(info.get('like_count', 0) or 0),
-                    'thumbnail': info.get('thumbnail', ''),
-                    'description': info.get('description', '')[:500],  # First 500 chars
-                    'url': f"https://www.youtube.com/watch?v={video_id}",
-                    'downloaded_at': datetime.now().isoformat(),
-                    'audio_file': str(get_raw_audio_path(song_id)),
-                    'sample_rate': 48000,
-                    'channels': 2,
-                    'format': 'wav',
-                }
-                
-                # Save metadata to JSON
-                metadata_path = get_metadata_path(song_id)
-                with open(metadata_path, 'w', encoding='utf-8') as f:
-                    json.dump(metadata, f, indent=2, ensure_ascii=False)
-                
-                # Download thumbnail
-                if info.get('thumbnail'):
-                    self._download_thumbnail(info['thumbnail'], song_id)
-                
-                print(f"[OK] Downloaded successfully!")
-                print(f"[YTDL] Title: {metadata['title']}")
-                print(f"[YTDL] Artist: {metadata['artist']}")
-                print(f"[YTDL] Duration: {metadata['duration_string']}")
-                print(f"[YTDL] Saved to: {output_dir}")
-                
-                return metadata
+                break  # Success, exit retry loop
                     
             except Exception as e:
-                error_msg = str(e)
-                if ('SSL' in error_msg or 'EOF' in error_msg) and attempt < max_attempts:
-                    wait_time = attempt * 3
-                    print(f"[WARN] SSL/Connection error (attempt {attempt}/{max_attempts}), retrying in {wait_time}s...")
+                if attempt < max_attempts:
+                    print(f"[WARN] yt-dlp error (attempt {attempt}/{max_attempts}): {e}")
                     import time
-                    time.sleep(wait_time)
+                    time.sleep(attempt * 3)
                     continue
-                print(f"[ERROR] Download error: {e}")
+                # yt-dlp failed completely, try Piped download fallback
+                print(f"[YTDL] yt-dlp failed, trying Piped download fallback...")
+                piped_result = self._download_via_piped(video_id, song_id, output_dir)
+                if piped_result:
+                    return piped_result
+                print(f"[ERROR] All download methods failed: {e}")
                 return None
+        
+        # Prepare metadata (only reached if yt-dlp succeeded)
+        metadata = {
+            'song_id': song_id,
+            'video_id': video_id,
+            'title': info.get('title', song_title or 'Unknown'),
+            'artist': info.get('artist', info.get('creator', info.get('channel', 'Unknown'))),
+            'album': info.get('album', info.get('title', 'YouTube')),
+            'duration': info.get('duration', 0),
+            'duration_string': self._format_duration(info.get('duration', 0)),
+            'channel': info.get('channel', 'Unknown'),
+            'upload_date': info.get('upload_date', ''),
+            'view_count': int(info.get('view_count', 0) or 0),
+            'like_count': int(info.get('like_count', 0) or 0),
+            'thumbnail': info.get('thumbnail', ''),
+            'description': info.get('description', '')[:500],
+            'url': f"https://www.youtube.com/watch?v={video_id}",
+            'downloaded_at': datetime.now().isoformat(),
+            'audio_file': str(get_raw_audio_path(song_id)),
+            'sample_rate': 48000,
+            'channels': 2,
+            'format': 'wav',
+        }
+        
+        metadata_path = get_metadata_path(song_id)
+        with open(metadata_path, 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, indent=2, ensure_ascii=False)
+        
+        if info.get('thumbnail'):
+            self._download_thumbnail(info['thumbnail'], song_id)
+        
+        print(f"[OK] Downloaded successfully!")
+        print(f"[YTDL] Title: {metadata['title']}")
+        print(f"[YTDL] Artist: {metadata['artist']}")
+        print(f"[YTDL] Duration: {metadata['duration_string']}")
+        print(f"[YTDL] Saved to: {output_dir}")
+        
+        return metadata
     
     def _progress_hook(self, d):
         """Progress callback for yt-dlp"""
@@ -490,6 +493,91 @@ class YouTubeDownloader:
                 print(f"\r[YTDL] Downloading: {percent:.1f}%", end='', flush=True)
         elif d['status'] == 'finished':
             print("\n[OK] Download complete, converting to WAV...")
+
+    def _download_via_piped(self, video_id: str, song_id: str, output_dir: Path) -> Optional[Dict]:
+        """Fallback: download audio via Piped API when yt-dlp fails."""
+        PIPED_INSTANCES = [
+            'https://pipedapi.kavin.rocks',
+            'https://pipedapi.r4fo.com',
+            'https://api.piped.yt',
+            'https://pipedapi.darkness.services',
+        ]
+        for api_url in PIPED_INSTANCES:
+            try:
+                print(f"[PIPED] Trying {api_url}...")
+                resp = requests.get(f"{api_url}/streams/{video_id}", timeout=15)
+                if resp.status_code != 200:
+                    continue
+                data = resp.json()
+
+                # Find best audio stream
+                audio_streams = data.get('audioStreams', [])
+                if not audio_streams:
+                    continue
+                # Pick highest bitrate audio
+                best = max(audio_streams, key=lambda s: s.get('bitrate', 0))
+                stream_url = best.get('url', '')
+                if not stream_url:
+                    continue
+
+                print(f"[PIPED] Downloading audio (bitrate: {best.get('bitrate', '?')}bps)...")
+                audio_resp = requests.get(stream_url, stream=True, timeout=60)
+                audio_resp.raise_for_status()
+
+                # Save as m4a/webm (whatever Piped provides)
+                ext = best.get('mimeType', 'audio/mp4').split('/')[-1].replace('mp4', 'm4a')
+                audio_path = output_dir / f'original.{ext}'
+                with open(audio_path, 'wb') as f:
+                    for chunk in audio_resp.iter_content(chunk_size=8192):
+                        f.write(chunk)
+
+                file_size = audio_path.stat().st_size
+                print(f"[PIPED] Downloaded {file_size / 1024 / 1024:.1f}MB")
+
+                # Build metadata
+                title = data.get('title', 'Unknown')
+                artist = data.get('uploader', 'Unknown')
+                duration = data.get('duration', 0)
+                thumbnail_url = data.get('thumbnailUrl', '')
+
+                metadata = {
+                    'song_id': song_id,
+                    'video_id': video_id,
+                    'title': title,
+                    'artist': artist,
+                    'album': data.get('uploader', 'YouTube'),
+                    'duration': duration,
+                    'duration_string': self._format_duration(duration),
+                    'channel': data.get('uploader', 'Unknown'),
+                    'upload_date': '',
+                    'view_count': int(data.get('views', 0) or 0),
+                    'like_count': 0,
+                    'thumbnail': thumbnail_url,
+                    'description': (data.get('description', '') or '')[:500],
+                    'url': f"https://www.youtube.com/watch?v={video_id}",
+                    'downloaded_at': datetime.now().isoformat(),
+                    'audio_file': str(get_raw_audio_path(song_id)),
+                    'sample_rate': 48000,
+                    'channels': 2,
+                    'format': ext,
+                }
+
+                metadata_path = get_metadata_path(song_id)
+                with open(metadata_path, 'w', encoding='utf-8') as f:
+                    json.dump(metadata, f, indent=2, ensure_ascii=False)
+
+                if thumbnail_url:
+                    self._download_thumbnail(thumbnail_url, song_id)
+
+                print(f"[OK] Piped download successful: {title} - {artist}")
+                return metadata
+
+            except Exception as e:
+                print(f"[PIPED] Failed on {api_url}: {e}")
+                continue
+
+        print("[PIPED] All Piped instances failed")
+        return None
     
     def _download_thumbnail(self, thumbnail_url: str, song_id: str) -> bool:
         """
