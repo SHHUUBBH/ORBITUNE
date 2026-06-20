@@ -75,7 +75,7 @@ async def send_message(request: ChatMessageRequest):
             if song_dict.get('thumbnail') and 'saavncdn.com' in song_dict.get('thumbnail', ''):
                 # Replace with local thumbnail or placeholder
                 song_id = song_dict.get('id', '')
-                song_dict['thumbnail'] = f"http://127.0.0.1:8000/media/thumbnails/{song_id}.jpg"
+                song_dict['thumbnail'] = f"/media/thumbnails/{song_id}.jpg"
             song_results.append(Song(**song_dict))
         
         return ChatMessageResponse(

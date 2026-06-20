@@ -305,7 +305,7 @@ API_RELOAD = True  # Auto-reload on code changes (dev mode)
 # GEMINI API CONFIGURATION (Genre Detection)
 # =============================================================================
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')  # Set your API key in environment
-GEMINI_MODEL = 'models/gemini-2.0-flash'  # Gemini 2.0 Flash model
+GEMINI_MODEL = 'gemini-2.0-flash'  # Gemini 2.0 Flash model (no models/ prefix for google-genai SDK)
 
 # =============================================================================
 # PROFESSIONAL AUDIO PROCESSING SETTINGS

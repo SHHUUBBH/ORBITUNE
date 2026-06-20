@@ -366,23 +366,18 @@ class YouTubeDownloader:
                     
             except Exception as e:
                 error_msg = str(e)
-                if 'SSL' in error_msg or 'EOF' in error_msg:
-                    if attempt < max_attempts:
-                        wait_time = attempt * 2
-                        print(f"[WARN] SSL/Connection error (attempt {attempt}/{max_attempts}), retrying in {wait_time}s...")
-                        import time
-                        time.sleep(wait_time)
-                        continue
+                if attempt < max_attempts:
+                    wait_time = attempt * 2
+                    print(f"[WARN] Search error (attempt {attempt}/{max_attempts}): {e}, retrying in {wait_time}s...")
+                    import time
+                    time.sleep(wait_time)
+                    continue
                 # If all yt-dlp attempts fail, try Invidious fallback
-                if attempt >= max_attempts:
-                    print("[YTDL] All yt-dlp attempts failed, trying Invidious fallback...")
-                    invidious_results = self._search_invidious(query, max_results)
-                    if invidious_results:
-                        return invidious_results
-                    # Ultimate fallback: demo tracks for ANY query
-                    print("[YTDL] Invidious failed, using demo fallback...")
-                    return self._search_demo_fallback(query, max_results)
-                print(f"[ERROR] Search error: {e}")
+                print("[YTDL] All yt-dlp attempts failed, trying Invidious fallback...")
+                invidious_results = self._search_invidious(query, max_results)
+                if invidious_results:
+                    return invidious_results
+                print("[YTDL] All search methods failed")
                 return []
     
     def _format_duration(self, seconds) -> str:

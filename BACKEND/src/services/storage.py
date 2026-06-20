@@ -8,8 +8,8 @@ from datetime import datetime
 from supabase import create_client, Client
 
 # Supabase configuration
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://knsvfyoaggnyvtniitxp.supabase.co")
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtuc3ZmeW9hZ2dueXZ0bmlpdHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNzg4ODksImV4cCI6MjA5Njk1NDg4OX0.u64VGTGR8sh2Tqk-7XVpXOttx8r2azZklolUS3wlr80")
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_KEY", os.getenv("SUPABASE_ANON_KEY", ""))
 SUPABASE_BUCKET_NAME = os.getenv("SUPABASE_BUCKET_NAME", "orbitune-audio")
 
 # Initialize Supabase client
@@ -80,7 +80,7 @@ def delete_audio_file(song_id: str) -> bool:
         True if deletion was successful, False otherwise
     """
     client = _get_client()
-    object_name = f"{song_id}/orbitune_3d_professional.wav"
+    object_name = f"{song_id}/orbitune_3d_professional.mp3"
 
     try:
         client.storage.from_(SUPABASE_BUCKET_NAME).remove([object_name])

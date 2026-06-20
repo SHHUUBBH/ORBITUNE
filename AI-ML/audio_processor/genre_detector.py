@@ -227,7 +227,7 @@ Choose the single best-fitting genre. Confidence should be 0.0-1.0."""
         # Genre keywords
         keywords = {
             'edm': ['edm', 'electronic', 'dubstep', 'house', 'techno', 'trance', 'bass drop'],
-            'rock': ['rock', 'guitar', 'band', 'metal' 'punk'],
+            'rock': ['rock', 'guitar', 'band', 'metal', 'punk'],
             'classical': ['classical', 'orchestra', 'symphony', 'piano', 'violin', 'beethoven', 'mozart'],
             'jazz': ['jazz', 'swing', 'blues', 'saxophone'],
             'hip_hop': ['hip hop', 'rap', 'trap', 'beat', 'rapper'],
@@ -257,8 +257,8 @@ def main():
     print("[GENRE] ORBITUNE - Genre Detector Test\n")
     
     if not GEMINI_AVAILABLE:
-        print("[ERROR] google-generativeai not installed")
-        print("Install: pip install google-generativeai")
+        print("[ERROR] google-genai not installed")
+        print("Install: pip install google-genai")
         return
     
     if not GEMINI_API_KEY:
