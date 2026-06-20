@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: orbitune-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+    healthCheckPath: /health
+    autoDeploy: true
