@@ -6,6 +6,7 @@ Downloads highest quality audio from YouTube with metadata
 import yt_dlp
 import json
 import hashlib
+import re
 from pathlib import Path
 from typing import List, Dict, Optional
 from datetime import datetime
@@ -59,21 +60,17 @@ class YouTubeDownloader:
     def _search_invidious(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
         """
         Fallback search using public Invidious instances.
-        More reliable on restricted networks like HF Spaces.
+        Only inv.thepixora.com has API enabled as of June 2026.
         """
         print(f"[YTDL] Fallback search via Invidious for: '{query}'")
         
-        # Public Invidious instances (updated June 2026)
+        # Only instance with API enabled (api.invidious.io as of June 2026)
         invidious_instances = [
-            'https://inv.tux.pizza',
-            'https://yewtu.be',
-            'https://iv.ggtyler.dev',
+            'https://inv.thepixora.com',
             'https://inv.nadeko.net',
-            'https://invidious.protokoll-11.dev',
-            'https://vid.puffyan.us',
-            'https://invidious.lunar.icu',
-            'https://invidious.privacyredirect.com',
-            'https://yt.artemislena.eu',
+            'https://invidious.nerdvpn.de',
+            'https://invidious.f5.si',
+            'https://yt.chocolatemoo53.com',
         ]
         
         for instance in invidious_instances:
@@ -119,44 +116,34 @@ class YouTubeDownloader:
                     }
                     results.append(result)
                 
-                print(f"[OK] Invidious search found {len(results)} results via {instance}")
-                return results
+                if results:
+                    print(f"[OK] Invidious search found {len(results)} results via {instance}")
+                    return results
+                else:
+                    print(f"[WARN] Invidious {instance} returned 0 results")
+                    continue
                 
             except Exception as e:
                 print(f"[WARN] Invidious instance {instance} failed: {e}")
                 continue
         
         print("[ERROR] All Invidious instances failed")
-        print("[YTDL] Trying Piped fallback...")
-        piped_results = self._search_piped(query, max_results)
-        if piped_results:
-            return piped_results
-        print("[YTDL] Trying demo fallback...")
-        return self._search_demo_fallback(query, max_results)
+        return []
 
 
     def _search_piped(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
         """
         Fallback search using public Piped API instances.
-        Piped is more reliable than Invidious on restricted networks.
+        Most are dead as of June 2026 - kept for completeness.
         """
         print(f"[YTDL] Fallback search via Piped for: '{query}'")
         
         piped_instances = [
             'https://pipedapi.kavin.rocks',
-            'https://pipedapi.r4fo.com',
-            'https://pipedapi.moomoo.me',
-            'https://api-piped.mha.fi',
-            'https://pipedapi.leptons.xyz',
-            'https://pipedapi.ggtyler.dev',
-            'https://api.piped.yt',
             'https://pipedapi.syncpundit.io',
-            'https://pipedapi.owo.si',
-            'https://pipedapi.12a.app',
-            'https://api.piped.minionflo.net',
-            'https://pipedapi.darkness.services',
-            'https://api.piped.private.coffee',
-            'https://piped.wireway.ch',
+            'https://pipedapi.moomoo.me',
+            'https://pipedapi.adminforge.de',
+            'https://api.piped.projectsegfau.lt',
         ]
         
         for instance in piped_instances:
@@ -286,11 +273,133 @@ class YouTubeDownloader:
         return filtered
 
 
+    def _search_youtube_direct(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
+        """
+        Search YouTube by scraping the search results page directly.
+        No API key or proxy needed - works from any IP including cloud servers.
+        """
+        print(f"[YTDL] Direct YouTube search for: '{query}'")
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            }
+            resp = requests.get(
+                'https://www.youtube.com/results',
+                params={'search_query': query, 'sp': 'EgIQAQ%3D%3D'},
+                headers=headers,
+                timeout=15,
+            )
+            if resp.status_code != 200:
+                print(f"[YTDL] YouTube returned {resp.status_code}")
+                return []
+
+            html = resp.text
+
+            # Extract ytInitialData JSON from page
+            match = re.search(r'var ytInitialData\s*=\s*({.*?});</script>', html, re.DOTALL)
+            if not match:
+                # Try alternate pattern
+                match = re.search(r'window\["ytInitialData"\]\s*=\s*({.*?});</script>', html, re.DOTALL)
+            if not match:
+                print("[YTDL] Could not find ytInitialData in YouTube page")
+                return []
+
+            data = json.loads(match.group(1))
+
+            # Navigate to search results
+            contents = (data
+                        .get('contents', {})
+                        .get('twoColumnSearchResultsRenderer', {})
+                        .get('primaryContents', {})
+                        .get('sectionListRenderer', {})
+                        .get('contents', []))
+
+            results = []
+            for section in contents:
+                items = (section
+                         .get('itemSectionRenderer', {})
+                         .get('contents', []))
+                for item in items:
+                    video_renderer = item.get('videoRenderer', {})
+                    if not video_renderer:
+                        continue
+
+                    video_id = video_renderer.get('videoId', '')
+                    if not video_id:
+                        continue
+
+                    title_runs = video_renderer.get('title', {}).get('runs', [])
+                    title = ''.join(r.get('text', '') for r in title_runs)
+
+                    channel_runs = video_renderer.get('ownerText', {}).get('runs', [])
+                    channel = ''.join(r.get('text', '') for r in channel_runs)
+
+                    # Duration
+                    duration_text = video_renderer.get('lengthText', {}).get('simpleText', '0:00')
+                    duration = self._parse_duration_string(duration_text)
+
+                    if duration and duration > MAX_SONG_DURATION:
+                        continue
+
+                    # Thumbnail
+                    thumbs = video_renderer.get('thumbnail', {}).get('thumbnails', [])
+                    thumbnail = thumbs[-1]['url'] if thumbs else ''
+
+                    # View count
+                    view_text = video_renderer.get('viewCountText', {}).get('simpleText', '0')
+                    view_count = int(re.sub(r'[^\d]', '', view_text) or 0)
+
+                    song_id = self.generate_song_id(video_id)
+
+                    result = {
+                        'song_id': song_id,
+                        'video_id': video_id,
+                        'title': title,
+                        'channel': channel,
+                        'duration': duration,
+                        'duration_string': duration_text,
+                        'thumbnail': thumbnail,
+                        'url': f'https://www.youtube.com/watch?v={video_id}',
+                        'view_count': view_count,
+                    }
+                    results.append(result)
+
+                    if len(results) >= max_results:
+                        break
+                if len(results) >= max_results:
+                    break
+
+            if results:
+                print(f"[OK] Direct YouTube search found {len(results)} results")
+            else:
+                print("[YTDL] Direct YouTube search returned 0 results")
+            return results
+
+        except Exception as e:
+            print(f"[YTDL] Direct YouTube search failed: {e}")
+            return []
+
+    def _parse_duration_string(self, duration_text: str) -> int:
+        """Parse '1:23' or '1:23:45' to seconds."""
+        if not duration_text:
+            return 0
+        parts = duration_text.split(':')
+        try:
+            if len(parts) == 3:
+                return int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
+            elif len(parts) == 2:
+                return int(parts[0]) * 60 + int(parts[1])
+            else:
+                return int(parts[0])
+        except (ValueError, IndexError):
+            return 0
 
 
     def search(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
         """
-        Search YouTube for songs with retry logic
+        Search YouTube for songs with fallback chain.
         
         Args:
             query: Search query (e.g. "shape of you ed sheeran")
@@ -309,71 +418,65 @@ class YouTubeDownloader:
             print(f"[YTDL] Fast path: demo keyword detected, returning demo tracks")
             return self._search_demo_fallback(query, max_results)
         
-        # Try Piped first (most reliable from cloud servers)
-        print("[YTDL] Trying Piped search (most reliable from cloud)...")
-        piped_results = self._search_piped(query, max_results)
-        if piped_results:
-            return piped_results
+        # 1. Try direct YouTube page scraping (no API, no proxy, works from cloud)
+        print("[YTDL] Trying direct YouTube search...")
+        direct_results = self._search_youtube_direct(query, max_results)
+        if direct_results:
+            return direct_results
         
-        # Try Invidious second
+        # 2. Try Invidious (only inv.thepixora.com has API enabled)
         print("[YTDL] Trying Invidious search...")
         invidious_results = self._search_invidious(query, max_results)
         if invidious_results:
             return invidious_results
         
-        # Try yt-dlp last (usually fails from cloud due to bot detection)
+        # 3. Try Piped instances
+        print("[YTDL] Trying Piped search...")
+        piped_results = self._search_piped(query, max_results)
+        if piped_results:
+            return piped_results
+        
+        # 4. Try yt-dlp (usually fails from cloud)
         print("[YTDL] Trying yt-dlp search (may fail from cloud)...")
         ydl_opts = YTDLP_SEARCH_OPTIONS.copy()
-        max_attempts = 2
-        for attempt in range(1, max_attempts + 1):
-            try:
-                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    search_results = ydl.extract_info(
-                        f"ytsearch{max_results}:{query}",
-                        download=False
-                    )
-                    
-                    results = []
-                    for entry in search_results.get('entries', []):
-                        if not entry:
-                            continue
-                        
-                        duration = entry.get('duration', 0)
-                        if duration:
-                            duration = int(duration)
-                        
-                        if duration and duration > MAX_SONG_DURATION:
-                            continue
-                        
-                        video_id = entry['id']
-                        song_id = self.generate_song_id(video_id)
-                        
-                        result = {
-                            'song_id': song_id,
-                            'video_id': video_id,
-                            'title': entry.get('title', 'Unknown'),
-                            'channel': entry.get('channel', entry.get('uploader', 'Unknown')),
-                            'duration': duration,
-                            'duration_string': self._format_duration(duration),
-                            'thumbnail': entry.get('thumbnail', ''),
-                            'url': f"https://www.youtube.com/watch?v={video_id}",
-                            'view_count': int(entry.get('view_count', 0) or 0),
-                        }
-                        results.append(result)
-                    
-                    print(f"[OK] Found {len(results)} results")
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                search_results = ydl.extract_info(
+                    f"ytsearch{max_results}:{query}",
+                    download=False
+                )
+                results = []
+                for entry in search_results.get('entries', []):
+                    if not entry:
+                        continue
+                    duration = entry.get('duration', 0)
+                    if duration:
+                        duration = int(duration)
+                    if duration and duration > MAX_SONG_DURATION:
+                        continue
+                    video_id = entry['id']
+                    song_id = self.generate_song_id(video_id)
+                    result = {
+                        'song_id': song_id,
+                        'video_id': video_id,
+                        'title': entry.get('title', 'Unknown'),
+                        'channel': entry.get('channel', entry.get('uploader', 'Unknown')),
+                        'duration': duration,
+                        'duration_string': self._format_duration(duration),
+                        'thumbnail': entry.get('thumbnail', ''),
+                        'url': f"https://www.youtube.com/watch?v={video_id}",
+                        'view_count': int(entry.get('view_count', 0) or 0),
+                    }
+                    results.append(result)
+                if results:
+                    print(f"[OK] yt-dlp found {len(results)} results")
                     return results
-                    
-            except Exception as e:
-                if attempt < max_attempts:
-                    print(f"[WARN] yt-dlp search error (attempt {attempt}/{max_attempts}): {e}")
-                    import time
-                    time.sleep(2)
-                    continue
-                print(f"[WARN] yt-dlp search failed: {e}")
+        except Exception as e:
+            print(f"[WARN] yt-dlp search failed: {e}")
         
-        print("[YTDL] All search methods failed")
-        return []
+        # 5. Fallback to demo tracks
+        print("[YTDL] All search methods failed, returning demo tracks")
+        return self._search_demo_fallback(query, max_results)
     
     def _format_duration(self, seconds) -> str:
         """Format duration in seconds to MM:SS or HH:MM:SS"""
@@ -496,15 +599,11 @@ class YouTubeDownloader:
     def _download_via_invidious(self, video_id: str, song_id: str, output_dir: Path) -> Optional[Dict]:
         """Download audio via Invidious API - tries /latest_version endpoint for audio-only stream."""
         INVIDIOUS_INSTANCES = [
-            'https://inv.tux.pizza',
-            'https://yewtu.be',
-            'https://iv.ggtyler.dev',
+            'https://inv.thepixora.com',
             'https://inv.nadeko.net',
-            'https://invidious.protokoll-11.dev',
-            'https://vid.puffyan.us',
-            'https://invidious.lunar.icu',
-            'https://invidious.privacyredirect.com',
-            'https://yt.artemislena.eu',
+            'https://invidious.nerdvpn.de',
+            'https://invidious.f5.si',
+            'https://yt.chocolatemoo53.com',
         ]
         for instance in INVIDIOUS_INSTANCES:
             try:
@@ -616,19 +715,10 @@ class YouTubeDownloader:
         """Fallback: download audio via Piped API when yt-dlp fails."""
         PIPED_INSTANCES = [
             'https://pipedapi.kavin.rocks',
-            'https://pipedapi.r4fo.com',
-            'https://pipedapi.moomoo.me',
-            'https://api-piped.mha.fi',
-            'https://pipedapi.leptons.xyz',
-            'https://pipedapi.ggtyler.dev',
-            'https://api.piped.yt',
             'https://pipedapi.syncpundit.io',
-            'https://pipedapi.owo.si',
-            'https://pipedapi.12a.app',
-            'https://api.piped.minionflo.net',
-            'https://pipedapi.darkness.services',
-            'https://api.piped.private.coffee',
-            'https://piped.wireway.ch',
+            'https://pipedapi.moomoo.me',
+            'https://pipedapi.adminforge.de',
+            'https://api.piped.projectsegfau.lt',
         ]
         for api_url in PIPED_INSTANCES:
             try:
