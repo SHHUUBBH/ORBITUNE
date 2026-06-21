@@ -63,15 +63,17 @@ class YouTubeDownloader:
         """
         print(f"[YTDL] Fallback search via Invidious for: '{query}'")
         
-        # Public Invidious instances (more reliable than direct YouTube on restricted networks)
+        # Public Invidious instances (updated June 2026)
         invidious_instances = [
             'https://inv.tux.pizza',
             'https://yewtu.be',
+            'https://iv.ggtyler.dev',
+            'https://inv.nadeko.net',
+            'https://invidious.protokoll-11.dev',
             'https://vid.puffyan.us',
             'https://invidious.lunar.icu',
-            'https://yt.artemislena.eu',
             'https://invidious.privacyredirect.com',
-            'https://inv.us.projectsegfau.lt',
+            'https://yt.artemislena.eu',
         ]
         
         for instance in invidious_instances:
@@ -142,13 +144,19 @@ class YouTubeDownloader:
         
         piped_instances = [
             'https://pipedapi.kavin.rocks',
-            'https://pipedapi.adminforge.de',
             'https://pipedapi.r4fo.com',
-            'https://api.piped.yt',
-            'https://pipedapi.ggtyler.dev',
             'https://pipedapi.moomoo.me',
             'https://api-piped.mha.fi',
             'https://pipedapi.leptons.xyz',
+            'https://pipedapi.ggtyler.dev',
+            'https://api.piped.yt',
+            'https://pipedapi.syncpundit.io',
+            'https://pipedapi.owo.si',
+            'https://pipedapi.12a.app',
+            'https://api.piped.minionflo.net',
+            'https://pipedapi.darkness.services',
+            'https://api.piped.private.coffee',
+            'https://piped.wireway.ch',
         ]
         
         for instance in piped_instances:
@@ -301,31 +309,25 @@ class YouTubeDownloader:
             print(f"[YTDL] Fast path: demo keyword detected, returning demo tracks")
             return self._search_demo_fallback(query, max_results)
         
-        # HF Spaces: skip yt-dlp (always fails), try Piped/Invidious then demo
-        import os
-        is_hf = os.environ.get('HF_SPACES') or os.environ.get('SPACE_ID') or 'huggingface.co' in os.environ.get('HOSTNAME', '')
+        # Try Piped first (most reliable from cloud servers)
+        print("[YTDL] Trying Piped search (most reliable from cloud)...")
+        piped_results = self._search_piped(query, max_results)
+        if piped_results:
+            return piped_results
         
-        if is_hf:
-            print("[YTDL] HF Spaces: skipping yt-dlp, trying Piped...")
-            piped_results = self._search_piped(query, max_results)
-            if piped_results:
-                return piped_results
-            print("[YTDL] Piped failed, trying Invidious...")
-            invidious_results = self._search_invidious(query, max_results)
-            if invidious_results:
-                return invidious_results
-            print("[YTDL] All online search failed (HF Spaces blocks YouTube access)")
-            return []
+        # Try Invidious second
+        print("[YTDL] Trying Invidious search...")
+        invidious_results = self._search_invidious(query, max_results)
+        if invidious_results:
+            return invidious_results
         
-        # Use search-specific options from config
+        # Try yt-dlp last (usually fails from cloud due to bot detection)
+        print("[YTDL] Trying yt-dlp search (may fail from cloud)...")
         ydl_opts = YTDLP_SEARCH_OPTIONS.copy()
-        
-        # Retry logic for SSL/connection issues
-        max_attempts = 3
+        max_attempts = 2
         for attempt in range(1, max_attempts + 1):
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    # Search YouTube
                     search_results = ydl.extract_info(
                         f"ytsearch{max_results}:{query}",
                         download=False
@@ -340,7 +342,6 @@ class YouTubeDownloader:
                         if duration:
                             duration = int(duration)
                         
-                        # Filter out videos longer than max duration
                         if duration and duration > MAX_SONG_DURATION:
                             continue
                         
@@ -358,27 +359,21 @@ class YouTubeDownloader:
                             'url': f"https://www.youtube.com/watch?v={video_id}",
                             'view_count': int(entry.get('view_count', 0) or 0),
                         }
-                        
                         results.append(result)
                     
                     print(f"[OK] Found {len(results)} results")
                     return results
                     
             except Exception as e:
-                error_msg = str(e)
                 if attempt < max_attempts:
-                    wait_time = attempt * 2
-                    print(f"[WARN] Search error (attempt {attempt}/{max_attempts}): {e}, retrying in {wait_time}s...")
+                    print(f"[WARN] yt-dlp search error (attempt {attempt}/{max_attempts}): {e}")
                     import time
-                    time.sleep(wait_time)
+                    time.sleep(2)
                     continue
-                # If all yt-dlp attempts fail, try Invidious fallback
-                print("[YTDL] All yt-dlp attempts failed, trying Invidious fallback...")
-                invidious_results = self._search_invidious(query, max_results)
-                if invidious_results:
-                    return invidious_results
-                print("[YTDL] All search methods failed")
-                return []
+                print(f"[WARN] yt-dlp search failed: {e}")
+        
+        print("[YTDL] All search methods failed")
+        return []
     
     def _format_duration(self, seconds) -> str:
         """Format duration in seconds to MM:SS or HH:MM:SS"""
@@ -438,15 +433,15 @@ class YouTubeDownloader:
                     import time
                     time.sleep(attempt * 3)
                     continue
-                # yt-dlp failed completely, try Invidious/Piped download fallback
-                print(f"[YTDL] yt-dlp failed, trying Invidious download fallback...")
-                invidious_result = self._download_via_invidious(video_id, song_id, output_dir)
-                if invidious_result:
-                    return invidious_result
-                print(f"[YTDL] Invidious failed, trying Piped...")
+                # yt-dlp failed completely, try Piped download fallback first (proxy URLs may work)
+                print(f"[YTDL] yt-dlp failed, trying Piped download fallback...")
                 piped_result = self._download_via_piped(video_id, song_id, output_dir)
                 if piped_result:
                     return piped_result
+                print(f"[YTDL] Piped failed, trying Invidious...")
+                invidious_result = self._download_via_invidious(video_id, song_id, output_dir)
+                if invidious_result:
+                    return invidious_result
                 print(f"[YTDL] All download methods failed for {video_id}")
                 return None
         
@@ -502,21 +497,20 @@ class YouTubeDownloader:
         """Download audio via Invidious API - tries /latest_version endpoint for audio-only stream."""
         INVIDIOUS_INSTANCES = [
             'https://inv.tux.pizza',
-            'https://invidious.privacyredirect.com',
             'https://yewtu.be',
+            'https://iv.ggtyler.dev',
+            'https://inv.nadeko.net',
+            'https://invidious.protokoll-11.dev',
             'https://vid.puffyan.us',
             'https://invidious.lunar.icu',
-            'https://iv.ggtyler.dev',
-            'https://invidious.protokoll-11.dev',
-            'https://invidious.perennialte.ch',
+            'https://invidious.privacyredirect.com',
             'https://yt.artemislena.eu',
-            'https://inv.nadeko.net',
         ]
         for instance in INVIDIOUS_INSTANCES:
             try:
-                # First get video info
+                # First get video info (local=true proxies streams through Invidious)
                 print(f"[INVIDIOUS] Trying {instance}...")
-                info_resp = requests.get(f"{instance}/api/v1/videos/{video_id}", timeout=15)
+                info_resp = requests.get(f"{instance}/api/v1/videos/{video_id}?local=true", timeout=15)
                 if info_resp.status_code != 200:
                     print(f"[INVIDIOUS] {instance} returned {info_resp.status_code}")
                     continue
@@ -622,11 +616,19 @@ class YouTubeDownloader:
         """Fallback: download audio via Piped API when yt-dlp fails."""
         PIPED_INSTANCES = [
             'https://pipedapi.kavin.rocks',
-            'https://watchapi.whatever.social',
-            'https://pipedapi.adminforge.de',
-            'https://piped-api.garudalinux.org',
-            'https://pipedapi.in.projectsegfau.lt',
-            'https://api.piped.projectsegfau.lt',
+            'https://pipedapi.r4fo.com',
+            'https://pipedapi.moomoo.me',
+            'https://api-piped.mha.fi',
+            'https://pipedapi.leptons.xyz',
+            'https://pipedapi.ggtyler.dev',
+            'https://api.piped.yt',
+            'https://pipedapi.syncpundit.io',
+            'https://pipedapi.owo.si',
+            'https://pipedapi.12a.app',
+            'https://api.piped.minionflo.net',
+            'https://pipedapi.darkness.services',
+            'https://api.piped.private.coffee',
+            'https://piped.wireway.ch',
         ]
         for api_url in PIPED_INSTANCES:
             try:
@@ -707,102 +709,6 @@ class YouTubeDownloader:
 
             except Exception as e:
                 print(f"[PIPED] Failed on {api_url}: {e}")
-                continue
-
-        # Last resort: try cobalt.tools API
-        print("[COBALT] Trying cobalt.tools API...")
-        return self._download_via_cobalt(video_id, song_id, output_dir)
-
-    def _download_via_cobalt(self, video_id: str, song_id: str, output_dir: Path) -> Optional[Dict]:
-        """Download audio via cobalt.tools API as last resort."""
-        cobalt_apis = [
-            'https://api.cobalt.tools',
-            'https://cobalt-api.kwiatekmiki.com',
-        ]
-        youtube_url = f"https://www.youtube.com/watch?v={video_id}"
-        for api_url in cobalt_apis:
-            try:
-                print(f"[COBALT] Trying {api_url}...")
-                resp = requests.post(
-                    f"{api_url}/",
-                    json={
-                        'url': youtube_url,
-                        'downloadMode': 'audio',
-                        'audioFormat': 'mp3',
-                    },
-                    headers={
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    timeout=30,
-                )
-                if resp.status_code != 200:
-                    print(f"[COBALT] {api_url} returned {resp.status_code}: {resp.text[:200]}")
-                    continue
-                data = resp.json()
-
-                download_url = data.get('url', '') or data.get('status', '')
-                if not download_url or not download_url.startswith('http'):
-                    # cobalt may return download as a different field
-                    download_url = data.get('url', data.get('redirect', ''))
-                    if not download_url or not download_url.startswith('http'):
-                        print(f"[COBALT] No download URL in response: {list(data.keys())}")
-                        continue
-
-                print(f"[COBALT] Downloading audio...")
-                audio_resp = requests.get(download_url, stream=True, timeout=120)
-                audio_resp.raise_for_status()
-
-                audio_path = output_dir / 'original.mp3'
-                with open(audio_path, 'wb') as f:
-                    for chunk in audio_resp.iter_content(chunk_size=8192):
-                        f.write(chunk)
-
-                file_size = audio_path.stat().st_size
-                if file_size < 100000:
-                    print(f"[COBALT] Download too small ({file_size}B)")
-                    audio_path.unlink()
-                    continue
-                print(f"[COBALT] Downloaded {file_size / 1024 / 1024:.1f}MB")
-
-                title = data.get('title', 'Unknown')
-                artist = data.get('artist', data.get('uploader', 'Unknown'))
-                thumbnail_url = data.get('thumbnail', '')
-
-                metadata = {
-                    'song_id': song_id,
-                    'video_id': video_id,
-                    'title': title,
-                    'artist': artist,
-                    'album': 'YouTube',
-                    'duration': data.get('duration', 0),
-                    'duration_string': self._format_duration(data.get('duration', 0)),
-                    'channel': artist,
-                    'upload_date': '',
-                    'view_count': 0,
-                    'like_count': 0,
-                    'thumbnail': thumbnail_url,
-                    'description': '',
-                    'url': youtube_url,
-                    'downloaded_at': datetime.now().isoformat(),
-                    'audio_file': str(get_raw_audio_path(song_id)),
-                    'sample_rate': 44100,
-                    'channels': 2,
-                    'format': 'mp3',
-                }
-
-                metadata_path = get_metadata_path(song_id)
-                with open(metadata_path, 'w', encoding='utf-8') as f:
-                    json.dump(metadata, f, indent=2, ensure_ascii=False)
-
-                if thumbnail_url:
-                    self._download_thumbnail(thumbnail_url, song_id)
-
-                print(f"[OK] Cobalt download successful: {title} - {artist}")
-                return metadata
-
-            except Exception as e:
-                print(f"[COBALT] Failed on {api_url}: {e}")
                 continue
 
         return None
