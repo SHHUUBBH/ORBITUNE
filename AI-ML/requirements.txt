@@ -32,6 +32,3 @@ google-genai>=1.0.0
 
 # Supabase Cloud Storage
 supabase>=2.3.0
-
-# ID3 tag extraction for file uploads
-mutagen>=1.47.0

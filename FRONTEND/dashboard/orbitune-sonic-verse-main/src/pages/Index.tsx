@@ -9,7 +9,7 @@ import HeroSection from '@/components/HeroSection';
 import Sidebar from '@/components/Sidebar';
 import ProcessingModal from '@/components/ProcessingModal';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { createSongFromYoutube, uploadAudioFile, type YoutubeSuggestion } from '@/lib/api';
+import { createSongFromYoutube, type YoutubeSuggestion } from '@/lib/api';
 import { useMusic } from '@/contexts/MusicContext';
 
 interface Message {
@@ -205,82 +205,6 @@ const Index = () => {
     setMessages(prev => [...prev, cancelMessage]);
   };
 
-  const handleFileUpload = async (file: File) => {
-    const baseId = Date.now().toString();
-
-    const userMessage: Message = {
-      id: baseId,
-      type: 'user',
-      content: `Uploading: ${file.name}`,
-      timestamp: new Date(),
-    };
-    setMessages(prev => [...prev, userMessage]);
-
-    setIsProcessing(true);
-    setProcessingInfo({
-      songTitle: file.name,
-      currentStep: 1,
-      totalSteps: 3,
-      stepDescription: 'Uploading and extracting metadata...'
-    });
-
-    let cancelled = false;
-
-    window.setTimeout(() => {
-      if (cancelled) return;
-      setProcessingInfo(prev => ({
-        ...prev,
-        currentStep: 2,
-        stepDescription: 'Saving to cloud storage...'
-      }));
-    }, 1600);
-
-    window.setTimeout(() => {
-      if (cancelled) return;
-      setProcessingInfo(prev => ({
-        ...prev,
-        currentStep: 3,
-        stepDescription: 'Finalizing...'
-      }));
-    }, 3200);
-
-    try {
-      const newSong = await uploadAudioFile(file);
-      if (!newSong) throw new Error('Upload failed');
-
-      const mergedSongs = [
-        ...musicState.allSongs.filter((s) => s.id !== newSong.id),
-        newSong,
-      ];
-      dispatch({ type: 'SET_ALL_SONGS', payload: mergedSongs });
-      dispatch({ type: 'SET_QUEUE', payload: [newSong] });
-      dispatch({ type: 'PLAY_SONG', payload: newSong });
-
-      cancelled = true;
-      setIsProcessing(false);
-
-      const finalMessage: Message = {
-        id: `${baseId}-done`,
-        type: 'ai',
-        content: `✅ "${newSong.title}" by ${newSong.artist} is ready! Playing now in 3D spatial audio.`,
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, finalMessage]);
-    } catch (error) {
-      console.error('Upload error', error);
-      cancelled = true;
-      setIsProcessing(false);
-
-      const errorMessage: Message = {
-        id: `${baseId}-error`,
-        type: 'ai',
-        content: '❌ Upload failed. Please try a different file.',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
       <OrbitBackground />
@@ -355,7 +279,6 @@ const Index = () => {
                       <ConversationalInput 
                         onSend={handleSend} 
                         onSongSelected={handleSongSelected}
-                        onFileUploaded={handleFileUpload}
                         onChatResponse={handleChatResponse}
                       />
                     </div>

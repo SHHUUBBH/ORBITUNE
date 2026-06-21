@@ -17,11 +17,9 @@ export interface Song {
     duration: number;
     url?: string;
     thumbnail?: string;
-    audioUrl?: string;
     audioPath?: string;
     spatialAudioPath?: string;
     genre?: string;
-    releaseYear?: number;
 }
 
 export interface ChatResponse {
@@ -116,11 +114,9 @@ export async function createSongFromYoutube(
             duration: data.duration || 0,
             url: youtubeUrl,
             thumbnail: data.thumbnail,
-            audioUrl: data.audioUrl,
             audioPath: data.audioUrl,
             spatialAudioPath: data.audioUrl,
             genre: data.genre,
-            releaseYear: data.releaseYear,
         };
     } catch (error) {
         console.error('Error creating 3D audio from YouTube:', error);
@@ -221,48 +217,6 @@ export async function downloadAudio(songId: string, type: 'audio' | 'spatial' = 
         return await response.blob();
     } catch (error) {
         console.error('Error downloading audio:', error);
-        return null;
-    }
-}
-
-/**
- * Upload an audio file and extract metadata automatically
- */
-export async function uploadAudioFile(
-    file: File,
-    onProgress?: (step: number, total: number, description: string) => void
-): Promise<Song | null> {
-    try {
-        onProgress?.(1, 3, 'Uploading file...');
-        const formData = new FormData();
-        formData.append('file', file);
-
-        const response = await fetch(`${API_BASE_URL}/api/songs/upload`, {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (!response.ok) {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(errData.detail || `HTTP error! status: ${response.status}`);
-        }
-
-        onProgress?.(3, 3, 'Processing complete');
-        const data = await response.json();
-
-        return {
-            id: data.id || Date.now().toString(),
-            title: data.title || 'Unknown Title',
-            artist: data.artist || 'Unknown Artist',
-            album: data.album || '',
-            duration: data.duration || 0,
-            thumbnail: data.thumbnail,
-            audioUrl: data.audioUrl,
-            genre: data.genre,
-            releaseYear: data.releaseYear,
-        };
-    } catch (error) {
-        console.error('Error uploading audio file:', error);
         return null;
     }
 }

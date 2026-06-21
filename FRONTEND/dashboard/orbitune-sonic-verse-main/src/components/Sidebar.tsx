@@ -166,20 +166,11 @@ const Sidebar = () => {
                                         <div className="flex items-center gap-3 sm:gap-3.5 lg:gap-4">
                                             {/* Thumbnail */}
                                             <div className="relative w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14 flex-shrink-0">
-                                                {song.thumbnail ? (
-                                                    <img
-                                                        src={song.thumbnail}
-                                                        alt={song.title}
-                                                        className="w-full h-full object-cover rounded-md lg:rounded-lg shadow-md"
-                                                        onError={(e) => {
-                                                            (e.target as HTMLImageElement).style.display = 'none';
-                                                            (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-                                                        }}
-                                                    />
-                                                ) : null}
-                                                <div className={`w-full h-full rounded-md lg:rounded-lg bg-gradient-to-br from-primary/30 to-secondary/30 flex items-center justify-center ${song.thumbnail ? 'hidden' : ''}`}>
-                                                    <Music className="w-5 h-5 text-primary/60" />
-                                                </div>
+                                                <img
+                                                    src={song.thumbnail}
+                                                    alt={song.title}
+                                                    className="w-full h-full object-cover rounded-md lg:rounded-lg shadow-md"
+                                                />
                                                 {/* Play button overlay */}
                                                 {!isPlaying && (
                                                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-md lg:rounded-lg z-10">
