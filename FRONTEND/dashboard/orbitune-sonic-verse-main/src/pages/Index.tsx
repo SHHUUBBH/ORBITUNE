@@ -6,6 +6,7 @@ import ConversationalInput from '@/components/ConversationalInput';
 import ChatMessage from '@/components/ChatMessage';
 import MusicPlayer from '@/components/MusicPlayer';
 import HeroSection from '@/components/HeroSection';
+import DemoTracks from '@/components/DemoTracks';
 import Sidebar from '@/components/Sidebar';
 import ProcessingModal from '@/components/ProcessingModal';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -212,9 +213,9 @@ const Index = () => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex relative z-10 overflow-hidden pt-12 sm:pt-14 md:pt-16">
-        {/* Sidebar - Hidden on mobile, visible on large tablets and desktop */}
+        {/* Sidebar - Sticky, hidden on mobile */}
         <aside className="hidden lg:flex w-80 xl:w-96 2xl:w-[440px] flex-shrink-0">
-          <div className="w-full h-full p-3 lg:p-4 2xl:p-6">
+          <div className="w-full h-full p-3 lg:p-4 2xl:p-6 sticky top-16 sm:top-18 max-h-[calc(100vh-5rem)]">
             <Sidebar />
           </div>
         </aside>
@@ -226,6 +227,11 @@ const Index = () => {
               {/* Hero Section */}
               <section className="mb-4 xs:mb-6 sm:mb-8 lg:mb-14">
                 <HeroSection />
+              </section>
+
+              {/* Demo Tracks Section */}
+              <section className="mb-6 sm:mb-8 lg:mb-12">
+                <DemoTracks />
               </section>
 
               {/* AI Chatbot Section */}

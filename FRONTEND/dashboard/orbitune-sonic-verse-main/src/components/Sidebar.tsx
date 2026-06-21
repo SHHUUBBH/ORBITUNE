@@ -13,7 +13,10 @@ const Sidebar = () => {
     const [activeTab, setActiveTab] = useState<Tab>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const filteredSongs = state.allSongs.filter(song =>
+    // Filter out demo tracks (they have their own section)
+    const userSongs = state.allSongs.filter(song => !song.id.startsWith('demo-'));
+
+    const filteredSongs = userSongs.filter(song =>
         song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         song.artist.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -64,7 +67,7 @@ const Sidebar = () => {
                     <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gradient font-orbitron">Library</h2>
                     <div className="glass px-2.5 py-1 rounded-lg border border-white/10">
                         <span className="text-xs font-medium text-muted-foreground font-electrolize">
-                            {state.allSongs.length} songs
+                            {userSongs.length} songs
                         </span>
                     </div>
                 </div>
