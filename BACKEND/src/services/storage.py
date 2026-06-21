@@ -164,3 +164,58 @@ def fetch_all_songs() -> list:
     except Exception as e:
         print(f"[Supabase] Failed to fetch songs: {e}")
         return []
+
+
+def upload_thumbnail_bytes(image_bytes: bytes, song_id: str) -> str:
+    """
+    Upload thumbnail image bytes to Supabase bucket and return public URL.
+
+    Args:
+        image_bytes: Raw image bytes (JPEG/PNG)
+        song_id: Unique identifier for the song
+
+    Returns:
+        Public URL of the uploaded thumbnail
+    """
+    client = _get_client()
+    object_name = f"{song_id}/thumbnail.jpg"
+
+    try:
+        client.storage.from_(SUPABASE_BUCKET_NAME).upload(
+            object_name,
+            image_bytes,
+            file_options={"content-type": "image/jpeg", "upsert": "true"},
+        )
+        public_url = client.storage.from_(SUPABASE_BUCKET_NAME).get_public_url(object_name)
+        return public_url
+    except Exception as e:
+        print(f"[Supabase] Failed to upload thumbnail: {e}")
+        return ""
+
+
+def upload_audio_bytes(audio_bytes: bytes, song_id: str, content_type: str = "audio/mpeg") -> str:
+    """
+    Upload audio bytes to Supabase bucket and return public URL.
+
+    Args:
+        audio_bytes: Raw audio file bytes
+        song_id: Unique identifier for the song
+        content_type: MIME type of the audio
+
+    Returns:
+        Public URL of the uploaded audio
+    """
+    client = _get_client()
+    object_name = f"{song_id}/orbitune_3d_professional.wav"
+
+    try:
+        client.storage.from_(SUPABASE_BUCKET_NAME).upload(
+            object_name,
+            audio_bytes,
+            file_options={"content-type": content_type, "upsert": "true"},
+        )
+        public_url = client.storage.from_(SUPABASE_BUCKET_NAME).get_public_url(object_name)
+        return public_url
+    except Exception as e:
+        print(f"[Supabase] Failed to upload audio: {e}")
+        return ""

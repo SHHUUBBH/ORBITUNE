@@ -1,15 +1,16 @@
 import { useState, useRef } from 'react';
-import { Send, Sparkles, Music, MessageCircle, Search } from 'lucide-react';
+import { Send, Sparkles, Music, MessageCircle, Search, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { searchYoutubeSongs, sendChatMessage, type YoutubeSuggestion } from '@/lib/api';
+import { searchYoutubeSongs, sendChatMessage, uploadAudioFile, type YoutubeSuggestion } from '@/lib/api';
 
 interface ConversationalInputProps {
   onSend: (message: string, type: 'song' | 'mood') => void;
   onSongSelected: (suggestion: YoutubeSuggestion) => void;
+  onFileUploaded?: (file: File) => void;
   onChatResponse?: (userMessage: string, response: string, intent: string, songs?: any[]) => void;
 }
 
-const ConversationalInput = ({ onSend, onSongSelected, onChatResponse }: ConversationalInputProps) => {
+const ConversationalInput = ({ onSend, onSongSelected, onFileUploaded, onChatResponse }: ConversationalInputProps) => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [inputMode, setInputMode] = useState<'search' | 'chat'>('search'); // Tab-switchable mode
@@ -17,6 +18,7 @@ const ConversationalInput = ({ onSend, onSongSelected, onChatResponse }: Convers
   const [isSearching, setIsSearching] = useState(false);
   const [isChatting, setIsChatting] = useState(false);
   const searchTimeoutRef = useRef<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 
   const triggerSearch = (value: string) => {
@@ -201,6 +203,30 @@ const ConversationalInput = ({ onSend, onSongSelected, onChatResponse }: Convers
           </div>
         </div>
       </form>
+
+      {/* Upload button */}
+      <div className="mt-2 flex justify-center">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".mp3,.wav,.ogg,.flac,.m4a,.aac"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file && onFileUploaded) {
+              onFileUploaded(file);
+            }
+            e.target.value = '';
+          }}
+        />
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="flex items-center gap-2 px-4 py-2 rounded-full glass text-sm hover:glass-strong transition-all duration-300 hover:scale-105 text-muted-foreground hover:text-primary"
+        >
+          <Upload className="w-4 h-4" />
+          <span>Upload your own song (MP3, WAV)</span>
+        </button>
+      </div>
 
       {/* Song suggestions when typing in SEARCH mode */}
       {inputMode === 'search' && (isSearching || suggestions.length > 0) && (

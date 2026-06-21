@@ -43,7 +43,7 @@ SourceSeparator = None
 ORBITUNE_Professional = None
 
 # Import Supabase storage utility
-from services.storage import upload_audio_file, insert_song_metadata, fetch_all_songs, _get_client
+from services.storage import upload_audio_file, insert_song_metadata, fetch_all_songs, _get_client, upload_thumbnail_bytes
 
 
 _json_lock = Lock()
@@ -298,8 +298,11 @@ def create_song_from_youtube(*, query: Optional[str], youtube_url: Optional[str]
                     os.remove(p)
             except OSError:
                 pass
-    base_url = _get_base_url()
-    thumb_url = f"{base_url}/media/thumbnails/{song_id}.jpg"
+    # Use the thumbnail from the downloader metadata (YouTube thumbnail URL)
+    # Fall back to Supabase path if available
+    thumb_url = meta.get("thumbnail", "")
+    if not thumb_url:
+        thumb_url = ""
 
     # Prefer AI-ML metadata.json, but fall back to search metadata
     title = meta.get("title") or (search_meta or {}).get("title", "Unknown")
@@ -430,3 +433,198 @@ def get_playback_position(song_id: str) -> Optional[dict]:
     """Return the saved playback position dict or None."""
     data = _load_positions()
     return data.get(song_id)
+
+
+# ---------------------------------------------------------------------------
+# File upload: extract ID3 tags and store in Supabase
+# ---------------------------------------------------------------------------
+
+def create_song_from_upload(file_bytes: bytes, filename: str) -> Song:
+    """Process an uploaded audio file: extract metadata, upload to Supabase, persist.
+
+    Steps:
+    - Generate a unique song_id from filename + content hash
+    - Extract ID3 tags (title, artist, album, year, album art) using mutagen
+    - Upload audio file to Supabase
+    - Upload album art thumbnail to Supabase (if found)
+    - Insert metadata into Supabase database
+    - Return Song model
+    """
+    import hashlib
+    import io
+
+    # Generate song_id from content hash
+    content_hash = hashlib.md5(file_bytes).hexdigest()[:12]
+    song_id = content_hash
+
+    # Extract metadata from ID3 tags
+    title, artist, album, year, album_art = _extract_id3_tags(file_bytes, filename)
+
+    # Upload audio to Supabase
+    ext = Path(filename).suffix.lower().lstrip(".")
+    content_type_map = {
+        "mp3": "audio/mpeg",
+        "wav": "audio/wav",
+        "ogg": "audio/ogg",
+        "flac": "audio/flac",
+        "m4a": "audio/mp4",
+        "aac": "audio/mp4",
+    }
+    content_type = content_type_map.get(ext, "audio/mpeg")
+    audio_url = upload_audio_bytes(file_bytes, song_id, content_type)
+
+    # Upload thumbnail if we extracted album art
+    thumb_url = ""
+    if album_art:
+        thumb_url = upload_thumbnail_bytes(album_art, song_id)
+
+    # If no album art, use a placeholder
+    if not thumb_url:
+        thumb_url = ""
+
+    # Get duration estimate (file size / bitrate approximation)
+    duration = len(file_bytes) // 16000  # rough estimate for MP3
+
+    # Persist to Supabase database
+    insert_song_metadata(
+        song_id=song_id,
+        title=title,
+        artist=artist,
+        audio_url=audio_url,
+        image_url=thumb_url,
+        album=album,
+        duration=duration,
+        genre=None,
+        release_year=year,
+    )
+
+    song_model = Song(
+        id=song_id,
+        title=title,
+        artist=artist,
+        album=album,
+        duration=duration,
+        thumbnail=thumb_url if thumb_url else None,
+        audioUrl=audio_url,
+        genre=None,
+        releaseYear=year,
+    )
+
+    print(f"[UPLOAD] Song created: {title} by {artist} (id={song_id})")
+    return song_model
+
+
+def _extract_id3_tags(file_bytes: bytes, filename: str):
+    """Extract metadata from audio file ID3 tags using mutagen.
+
+    Returns:
+        (title, artist, album, year, album_art_bytes)
+    """
+    title = Path(filename).stem
+    artist = "Unknown Artist"
+    album = "Unknown Album"
+    year = None
+    album_art = None
+
+    try:
+        from mutagen.mp3 import MP3
+        from mutagen.mp4 import MP4
+        from mutagen.oggvorbis import OggVorbis
+        from mutagen.flac import FLAC
+
+        ext = Path(filename).suffix.lower()
+        audio_file = io.BytesIO(file_bytes)
+
+        tags = None
+        if ext == ".mp3":
+            audio = MP3(audio_file)
+            tags = audio.tags
+        elif ext in (".m4a", ".aac"):
+            audio = MP4(audio_file)
+            tags = audio.tags
+        elif ext == ".ogg":
+            audio = OggVorbis(audio_file)
+            tags = audio.tags
+        elif ext == ".flac":
+            audio = FLAC(audio_file)
+            tags = audio.tags
+        else:
+            # Try MP3 as fallback
+            audio_file.seek(0)
+            audio = MP3(audio_file)
+            tags = audio.tags
+
+        if tags is None:
+            print(f"[UPLOAD] No tags found in {filename}")
+            return title, artist, album, year, album_art
+
+        # Extract text tags (MP3/ID3v2)
+        if ext == ".mp3":
+            title = str(tags.get("TIT2", [title]))
+            artist = str(tags.get("TPE1", [artist]))
+            album = str(tags.get("TALB", [album]))
+            year_str = str(tags.get("TDRC", tags.get("TYE", [""])))
+            if year_str and year_str.isdigit():
+                year = int(year_str)
+            # Album art
+            if "APIC:" in tags:
+                album_art = tags["APIC:"].data
+
+        # Extract text tags (MP4/iTunes)
+        elif ext in (".m4a", ".aac"):
+            title = str(tags.get("\xa9nam", [title])) if "\xa9nam" in tags else title
+            artist = str(tags.get("\xa9ART", [artist])) if "\xa9ART" in tags else artist
+            album = str(tags.get("\xa9alb", [album])) if "\xa9alb" in tags else album
+            year_str = str(tags.get("\xa9day", [""])) if "\xa9day" in tags else ""
+            if year_str and year_str.isdigit():
+                year = int(year_str)
+            # Album art (covr atom)
+            if "covr" in tags:
+                album_art = tags["covr"][0]
+
+        # Extract text tags (OGG Vorbis)
+        elif ext == ".ogg":
+            title = str(tags.get("title", [title])) if "title" in tags else title
+            artist = str(tags.get("artist", [artist])) if "artist" in tags else artist
+            album = str(tags.get("album", [album])) if "album" in tags else album
+            year_str = str(tags.get("date", [""])) if "date" in tags else ""
+            if year_str and year_str.isdigit():
+                year = int(year_str)
+            if "metadata_block_picture" in tags:
+                try:
+                    from mutagen.flac import Picture
+                    import base64
+                    pic_data = base64.b64decode(tags["metadata_block_picture"][0])
+                    pic = Picture()
+                    pic.parse(pic_data)
+                    album_art = pic.data
+                except Exception:
+                    pass
+
+        # FLAC
+        elif ext == ".flac":
+            title = str(tags.get("title", [title])) if "title" in tags else title
+            artist = str(tags.get("artist", [artist])) if "artist" in tags else artist
+            album = str(tags.get("album", [album])) if "album" in tags else album
+            year_str = str(tags.get("date", [""])) if "date" in tags else ""
+            if year_str and year_str.isdigit():
+                year = int(year_str)
+            if tags.pictures:
+                album_art = tags.pictures[0].data
+
+        # Clean up extracted values
+        if title and title.startswith("["):
+            title = Path(filename).stem
+        if artist and artist.startswith("["):
+            artist = "Unknown Artist"
+        if album and album.startswith("["):
+            album = "Unknown Album"
+
+        print(f"[UPLOAD] Extracted tags: title={title}, artist={artist}, album={album}, year={year}, has_art={album_art is not None}")
+
+    except ImportError:
+        print("[UPLOAD] mutagen not installed, using filename as title")
+    except Exception as e:
+        print(f"[UPLOAD] Error extracting tags: {e}")
+
+    return title, artist, album, year, album_art
