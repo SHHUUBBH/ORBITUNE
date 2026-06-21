@@ -59,7 +59,7 @@ const Sidebar = () => {
     const songsToDisplay = getSongsForTab();
 
     return (
-        <div className="glass-strong rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 sm:p-4 lg:p-5 xl:p-6 max-h-[600px] flex flex-col border border-white/10 shadow-2xl">
+        <div className="glass-strong rounded-xl lg:rounded-2xl xl:rounded-3xl p-3 sm:p-4 lg:p-5 xl:p-6 h-full flex flex-col border border-white/10 shadow-2xl">
             {/* Header */}
             <div className="mb-4 lg:mb-5 flex-shrink-0">
                 {/* Title with stats */}

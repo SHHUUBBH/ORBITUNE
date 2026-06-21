@@ -211,30 +211,29 @@ const Index = () => {
       <OrbitBackground />
       <Header />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex relative z-10 overflow-hidden pt-12 sm:pt-14 md:pt-16">
-        {/* Sidebar - Sticky, hidden on mobile */}
-        <aside className="hidden lg:flex w-80 xl:w-96 2xl:w-[440px] flex-shrink-0">
-          <div className="w-full h-full p-3 lg:p-4 2xl:p-6 sticky top-16 sm:top-18 max-h-[calc(100vh-5rem)]">
+      {/* Main Content Area - single scroll container */}
+      <div className="flex-1 flex relative z-10 pt-12 sm:pt-14 md:pt-16 overflow-y-auto">
+        {/* Sidebar - Sticky on desktop */}
+        <aside className="hidden lg:block w-80 xl:w-96 2xl:w-[440px] flex-shrink-0">
+          <div className="sticky top-4 p-3 lg:p-4 2xl:p-6 h-[calc(100vh-5rem)]">
             <Sidebar />
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col overflow-hidden w-full">
-          <div className="flex-1 overflow-y-auto">
-            <div className="container mx-auto px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 py-3 xs:py-4 sm:py-6 lg:py-8 max-w-[1600px]">
-              {/* Hero Section */}
-              <section className="mb-4 xs:mb-6 sm:mb-8 lg:mb-14">
-                <HeroSection />
-              </section>
+        <main className="flex-1 w-full min-w-0">
+          <div className="container mx-auto px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 py-3 xs:py-4 sm:py-6 lg:py-8 max-w-[1600px]">
+            {/* Hero Section */}
+            <section className="mb-4 xs:mb-6 sm:mb-8 lg:mb-14">
+              <HeroSection />
+            </section>
 
-              {/* Demo Tracks Section */}
-              <section className="mb-6 sm:mb-8 lg:mb-12">
-                <DemoTracks />
-              </section>
+            {/* Demo Tracks Section */}
+            <section className="mb-6 sm:mb-8 lg:mb-12">
+              <DemoTracks />
+            </section>
 
-              {/* AI Chatbot Section */}
+            {/* AI Chatbot Section */}
               <section className="mb-16 xs:mb-20 sm:mb-24 lg:mb-32">
                 <div className="max-w-5xl mx-auto">
                   {/* Section Header */}
@@ -292,7 +291,6 @@ const Index = () => {
                 </div>
               </section>
             </div>
-          </div>
         </main>
       </div>
 
