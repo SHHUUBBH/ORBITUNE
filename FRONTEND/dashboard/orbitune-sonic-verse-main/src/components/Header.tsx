@@ -75,7 +75,7 @@ const Header = () => {
             variant="ghost"
             size="icon"
             className="rounded-full h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10"
-            onClick={() => window.location.href = 'https://teck.isroot.in'}
+            onClick={() => window.location.href = 'https://orbitune.vercel.app'}
             title="Go to Homepage"
           >
             <Home className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5" />
@@ -139,7 +139,7 @@ const Header = () => {
                     </div>
                     <div className="p-2">
                       <button
-                        onClick={() => { window.location.href = 'https://teck.isroot.in'; }}
+                        onClick={() => { window.location.href = 'https://orbitune.vercel.app'; }}
                         className="w-full flex items-center gap-2 px-3 py-2 text-sm font-electrolize hover:bg-primary/10 rounded-lg transition-colors"
                       >
                         <Home className="w-4 h-4" />
