@@ -138,7 +138,7 @@ export default function AuthPage() {
       console.log('✅ Session saved:', userData);
       
       // Redirect to dashboard immediately
-      window.location.href = 'http://localhost:5173/dashboard'
+      window.location.href = 'https://orbitune-audio.vercel.app'
     }
   }
 
@@ -355,7 +355,7 @@ export default function AuthPage() {
       >
         <Button
           variant="ghost"
-          onClick={() => window.location.href = 'http://localhost:3000'}
+          onClick={() => window.location.href = 'https://teck.isroot.in'}
           className="group gap-2 glassmorphism-nav hover:glass-strong font-electrolize"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

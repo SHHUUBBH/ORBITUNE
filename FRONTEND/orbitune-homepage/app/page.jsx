@@ -132,7 +132,7 @@ export default function HomePage() {
 
   const handleGetStarted = () => {
     // Open the app dashboard directly (no auth required)
-    window.location.href = 'http://localhost:5173/dashboard'
+    window.location.href = 'https://orbitune-audio.vercel.app'
   }
 
   const containerVariants = {
@@ -239,7 +239,7 @@ export default function HomePage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => { window.location.href = 'http://localhost:5173/dashboard'; }}
+                    onClick={() => { window.location.href = 'https://orbitune-audio.vercel.app'; }}
                     className="hidden lg:inline-flex glow-effect interactive hover-scale font-electrolize font-medium tracking-wide text-xs lg:text-sm px-3 lg:px-4"
                   >
                     GO TO APP
@@ -280,7 +280,7 @@ export default function HomePage() {
                           </div>
                           <div className="p-2">
                             <button
-                              onClick={() => { window.location.href = 'http://localhost:5173/dashboard'; }}
+                              onClick={() => { window.location.href = 'https://orbitune-audio.vercel.app'; }}
                               className="w-full flex items-center gap-2 px-3 py-2 text-sm font-electrolize hover:bg-primary/10 rounded-lg transition-colors"
                             >
                               <User className="w-4 h-4" />
@@ -305,7 +305,7 @@ export default function HomePage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => { window.location.href = 'http://localhost:3000/auth?mode=login'; }}
+                    onClick={() => { window.location.href = 'https://teck.isroot.in/auth?mode=login'; }}
                     className="hidden md:inline-flex glow-effect interactive hover-scale font-electrolize font-medium tracking-wide text-xs lg:text-sm px-3 lg:px-4"
                   >
                     LOGIN
@@ -313,7 +313,7 @@ export default function HomePage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => { window.location.href = 'http://localhost:3000/auth?mode=signup'; }}
+                    onClick={() => { window.location.href = 'https://teck.isroot.in/auth?mode=signup'; }}
                     className="hidden lg:inline-flex glow-effect interactive hover-scale font-electrolize font-medium tracking-wide text-xs lg:text-sm px-3 lg:px-4 gradient-bg text-white border-0"
                   >
                     SIGN UP
@@ -384,7 +384,7 @@ export default function HomePage() {
                   <>
                     <Button
                       variant="outline"
-                      onClick={() => { window.location.href = 'http://localhost:5173/dashboard'; }}
+                      onClick={() => { window.location.href = 'https://orbitune-audio.vercel.app'; }}
                       className="w-full justify-start font-electrolize interactive text-sm sm:text-base h-10 sm:h-11"
                     >
                       <User className="h-4 w-4 mr-2" />
@@ -403,7 +403,7 @@ export default function HomePage() {
                   <>
                     <Button
                       variant="outline"
-                      onClick={() => { window.location.href = 'http://localhost:3000/auth?mode=login'; }}
+                      onClick={() => { window.location.href = 'https://teck.isroot.in/auth?mode=login'; }}
                       className="w-full justify-start font-electrolize interactive text-sm sm:text-base h-10 sm:h-11"
                     >
                       <User className="h-4 w-4 mr-2" />
@@ -411,7 +411,7 @@ export default function HomePage() {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => { window.location.href = 'http://localhost:3000/auth?mode=signup'; }}
+                      onClick={() => { window.location.href = 'https://teck.isroot.in/auth?mode=signup'; }}
                       className="w-full justify-start font-electrolize interactive text-sm sm:text-base h-10 sm:h-11 gradient-bg text-white border-0"
                     >
                       SIGN UP
