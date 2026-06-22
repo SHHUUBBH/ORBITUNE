@@ -18,7 +18,8 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from config import (
     RAW_AUDIO_DIR, THUMBNAILS_DIR, YTDLP_OPTIONS, YTDLP_SEARCH_OPTIONS,
-    MAX_SONG_DURATION, YOUTUBE_SEARCH_MAX_RESULTS,
+    MAX_SONG_DURATION, YOUTUBE_SEARCH_MAX_RESULTS, YOUTUBE_COOKIES_PATH,
+    YOUTUBE_RATE_LIMIT_DELAY,
     get_raw_audio_path, get_metadata_path, get_thumbnail_path
 )
 
@@ -39,8 +40,17 @@ class YouTubeDownloader:
         """Initialize YouTube downloader"""
         self.download_dir = RAW_AUDIO_DIR
         self.thumbnails_dir = THUMBNAILS_DIR
+        self._last_request_time = 0  # Rate limiting tracker
         
-        print("[YTDL] YouTube Downloader initialized")
+        # Log cookies status
+        import os
+        if os.path.exists(YOUTUBE_COOKIES_PATH):
+            print(f"[OK] YouTube cookies available: {YOUTUBE_COOKIES_PATH}")
+        else:
+            print(f"[WARN] No YouTube cookies at {YOUTUBE_COOKIES_PATH} - downloads may be blocked")
+        
+        print(f"[YTDL] YouTube Downloader initialized")
+        print(f"[YTDL] Rate limit: {YOUTUBE_RATE_LIMIT_DELAY}s between requests")
         print(f"[YTDL] Download directory: {self.download_dir}")
     
     def generate_song_id(self, video_id: str) -> str:
@@ -55,6 +65,16 @@ class YouTubeDownloader:
         """
         # Use MD5 hash of video ID for shorter ID
         return hashlib.md5(video_id.encode()).hexdigest()[:12]
+    
+    def _rate_limit(self):
+        """Enforce rate limiting between YouTube requests to avoid IP bans."""
+        import time
+        elapsed = time.time() - self._last_request_time
+        if elapsed < YOUTUBE_RATE_LIMIT_DELAY and self._last_request_time > 0:
+            wait = YOUTUBE_RATE_LIMIT_DELAY - elapsed
+            print(f"[YTDL] Rate limiting: waiting {wait:.1f}s...")
+            time.sleep(wait)
+        self._last_request_time = time.time()
     
 
     def _search_invidious(self, query: str, max_results: int = YOUTUBE_SEARCH_MAX_RESULTS) -> List[Dict]:
@@ -508,6 +528,9 @@ class YouTubeDownloader:
         
         print(f"\n[YTDL] Downloading: {video_id}")
         print(f"[YTDL] Song ID: {song_id}")
+        
+        # Rate limit to avoid YouTube IP bans
+        self._rate_limit()
         
         # Setup yt-dlp options with custom output path
         ydl_opts = YTDLP_OPTIONS.copy()

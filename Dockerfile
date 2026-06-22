@@ -5,16 +5,20 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Install git (needed for yt-dlp @ git+https://...) + ffmpeg
+# Install system deps: ffmpeg, git, curl (for cookie download)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     git \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY AI-ML/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Auto-update yt-dlp to latest version (critical for YouTube bypass)
+RUN pip install -U --no-cache-dir "yt-dlp[default]"
 
 COPY BACKEND/src ./src
 COPY AI-ML /AI-ML

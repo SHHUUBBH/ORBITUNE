@@ -108,7 +108,14 @@ YOUTUBE_SEARCH_MAX_RESULTS = 10
 YOUTUBE_MAX_RETRIES = 3
 YOUTUBE_RETRY_SLEEP = 2  # seconds between retries
 
-# yt-dlp options for best quality with YouTube bypass (aggressive SSL for HF Spaces)
+# YouTube cookies file path (exported from browser using "Get cookies.txt LOCALLY" extension)
+# Set via environment variable YOUTUBE_COOKIES_PATH or place cookies.txt in STORAGE/
+YOUTUBE_COOKIES_PATH = os.environ.get('YOUTUBE_COOKIES_PATH', str(STORAGE_DIR / 'cookies.txt'))
+
+# Rate limiting: seconds to wait between YouTube requests (prevents IP bans)
+YOUTUBE_RATE_LIMIT_DELAY = 5  # seconds between downloads
+
+# yt-dlp options for best quality with YouTube bypass
 YTDLP_OPTIONS = {
     'format': YOUTUBE_AUDIO_QUALITY,
     'postprocessors': [{
@@ -129,7 +136,7 @@ YTDLP_OPTIONS = {
     'skip_unavailable_fragments': True,
     'ignoreerrors': False,
     'no_color': False,
-    # SSL/TLS configuration for unstable connections (HF Spaces)
+    # SSL/TLS configuration
     'nocheckcertificate': True,
     'legacy_server_connect': True,
     'force_ipv4': True,
@@ -153,7 +160,15 @@ YTDLP_OPTIONS = {
     },
 }
 
-# Search-specific yt-dlp options (more aggressive SSL handling for HF Spaces)
+# Inject cookies if available (bypasses YouTube bot detection)
+if os.path.exists(YOUTUBE_COOKIES_PATH):
+    YTDLP_OPTIONS['cookiefile'] = YOUTUBE_COOKIES_PATH
+    print(f"[OK] YouTube cookies loaded from: {YOUTUBE_COOKIES_PATH}")
+else:
+    print(f"[WARN] No YouTube cookies found at: {YOUTUBE_COOKIES_PATH}")
+    print("[WARN] YouTube downloads may be blocked. Export cookies from browser.")
+
+# Search-specific yt-dlp options
 YTDLP_SEARCH_OPTIONS = {
     'quiet': True,
     'no_warnings': True,

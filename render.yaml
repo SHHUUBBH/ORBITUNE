@@ -11,5 +11,7 @@ services:
         sync: false
       - key: SUPABASE_KEY
         sync: false
+      - key: YOUTUBE_COOKIES_PATH
+        value: /app/STORAGE/cookies.txt
     healthCheckPath: /health
     autoDeploy: true
