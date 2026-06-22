@@ -40,13 +40,16 @@ class ResponseGenerator:
         """Initialize response generator with Gemini"""
         self.model = None
         self.api_available = False
+        self.active_model = None
         
         if GEMINI_AVAILABLE and GEMINI_API_KEY:
             try:
                 self.client = genai.Client(api_key=GEMINI_API_KEY)
-                self.model_name = 'gemini-2.0-flash'
+                # Model priority: try flash-lite (1000 RPD) first, then flash (250 RPD)
+                self.model_chain = ['gemini-2.0-flash-lite', 'gemini-2.0-flash', 'gemini-1.5-flash']
+                self.active_model = self.model_chain[0]
                 self.api_available = True
-                print("[OK] Gemini 2.0 Flash initialized for chatbot")
+                print(f"[OK] Gemini initialized with fallback chain: {self.model_chain}")
             except Exception as e:
                 print(f"⚠️  Gemini initialization error: {e}")
                 self.api_available = False
@@ -166,33 +169,42 @@ class ResponseGenerator:
             
             full_prompt = f"{system_prompt}\n\nUser: {user_message}\n\nYou (respond as ORBITUNE's buddy):"
             
-            # Generate with Gemini - retry on 429
+            # Generate with Gemini - try model chain with fallback
             import time
-            for attempt in range(3):
-                try:
-                    response = self.client.models.generate_content(
-                        model=self.model_name,
-                        contents=full_prompt,
-                        config=genai.types.GenerateContentConfig(
-                            temperature=0.9,
-                            max_output_tokens=150,
-                            top_p=0.95,
-                            top_k=40,
-                        ),
-                    )
-                    break
-                except Exception as retry_err:
-                    err_str = str(retry_err)
-                    if '429' in err_str or 'RESOURCE_EXHAUSTED' in err_str or 'quota' in err_str.lower():
-                        if 'limit: 0' in err_str:
-                            print(f"[GEMINI] Daily quota fully exhausted (limit: 0). Using fallback.")
+            response = None
+            for model_name in self.model_chain:
+                for attempt in range(2):
+                    try:
+                        response = self.client.models.generate_content(
+                            model=model_name,
+                            contents=full_prompt,
+                            config=genai.types.GenerateContentConfig(
+                                temperature=0.9,
+                                max_output_tokens=150,
+                                top_p=0.95,
+                                top_k=40,
+                            ),
+                        )
+                        self.active_model = model_name
+                        print(f"[GEMINI] Success with {model_name}")
+                        break
+                    except Exception as retry_err:
+                        err_str = str(retry_err)
+                        if '429' in err_str or 'RESOURCE_EXHAUSTED' in err_str:
+                            if 'limit: 0' in err_str:
+                                print(f"[GEMINI] {model_name} daily quota exhausted (limit: 0), trying next model...")
+                                break
+                            if attempt < 1:
+                                time.sleep(5)
+                                continue
                             break
-                        if attempt < 2:
-                            wait = (attempt + 1) * 15
-                            print(f"[GEMINI] Quota hit, retrying in {wait}s (attempt {attempt+1}/3)...")
-                            time.sleep(wait)
-                            continue
-                    raise retry_err
+                        raise retry_err
+                if response is not None:
+                    break
+            
+            if response is None:
+                print("[GEMINI] All models exhausted, using fallback")
+                return self._generate_fallback_response(user_message, intent, user_context)
             
             bot_response = response.text.strip()
             
