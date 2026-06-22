@@ -173,8 +173,8 @@ YTDLP_OPTIONS = {
     'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
     'extractor_args': {
         'youtube': {
-            'player_client': ['android', 'web', 'mweb', 'tv_embedded', 'ios'],
-            'player_skip': ['configs', 'webpage'],
+            'player_client': ['mediaconnect', 'web', 'web_creator'],
+            'player_skip': ['configs'],
             'skip': ['dash', 'hls', 'translated_subs'],
         }
     },
@@ -211,8 +211,8 @@ YTDLP_SEARCH_OPTIONS = {
     'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
     'extractor_args': {
         'youtube': {
-            'player_client': ['android', 'web', 'mweb', 'tv_embedded', 'ios'],
-            'player_skip': ['configs', 'webpage'],
+            'player_client': ['mediaconnect', 'web', 'web_creator'],
+            'player_skip': ['configs'],
             'skip': ['dash', 'hls', 'translated_subs'],
         }
     },
