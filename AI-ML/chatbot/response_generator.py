@@ -184,8 +184,11 @@ class ResponseGenerator:
                 except Exception as retry_err:
                     err_str = str(retry_err)
                     if '429' in err_str or 'RESOURCE_EXHAUSTED' in err_str or 'quota' in err_str.lower():
+                        if 'limit: 0' in err_str:
+                            print(f"[GEMINI] Daily quota fully exhausted (limit: 0). Using fallback.")
+                            break
                         if attempt < 2:
-                            wait = (attempt + 1) * 35
+                            wait = (attempt + 1) * 15
                             print(f"[GEMINI] Quota hit, retrying in {wait}s (attempt {attempt+1}/3)...")
                             time.sleep(wait)
                             continue

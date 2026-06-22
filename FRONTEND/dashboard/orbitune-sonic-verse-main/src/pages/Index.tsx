@@ -32,7 +32,7 @@ const Index = () => {
       id: '1',
       type: 'ai',
       content:
-        'Welcome to ORBITUNE! I am your AI music companion. Tell me how you are feeling or search for any song.',
+        "Yo! Welcome to ORBITUNE \uD83C\uDFB5 I'm your music buddy. Tell me the vibe you're feeling or search for any song \u2014 let's find something that hits different.",
       timestamp: new Date(),
     },
   ]);
@@ -188,7 +188,7 @@ const Index = () => {
         id: `${baseId}-error`,
         type: 'ai',
         content:
-          '❌ Something went wrong while creating 3D audio. Please check the YouTube link or try a different song.',
+          '❌ YouTube downloads are temporarily unavailable from our server. Try one of the demo tracks instead, or search for a song that\u2019s already in your library!',
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);
