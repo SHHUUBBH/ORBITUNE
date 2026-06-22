@@ -166,17 +166,30 @@ class ResponseGenerator:
             
             full_prompt = f"{system_prompt}\n\nUser: {user_message}\n\nYou (respond as ORBITUNE's buddy):"
             
-            # Generate with Gemini
-            response = self.client.models.generate_content(
-                model=self.model_name,
-                contents=full_prompt,
-                config=genai.types.GenerateContentConfig(
-                    temperature=0.9,
-                    max_output_tokens=150,
-                    top_p=0.95,
-                    top_k=40,
-                ),
-            )
+            # Generate with Gemini - retry on 429
+            import time
+            for attempt in range(3):
+                try:
+                    response = self.client.models.generate_content(
+                        model=self.model_name,
+                        contents=full_prompt,
+                        config=genai.types.GenerateContentConfig(
+                            temperature=0.9,
+                            max_output_tokens=150,
+                            top_p=0.95,
+                            top_k=40,
+                        ),
+                    )
+                    break
+                except Exception as retry_err:
+                    err_str = str(retry_err)
+                    if '429' in err_str or 'RESOURCE_EXHAUSTED' in err_str or 'quota' in err_str.lower():
+                        if attempt < 2:
+                            wait = (attempt + 1) * 35
+                            print(f"[GEMINI] Quota hit, retrying in {wait}s (attempt {attempt+1}/3)...")
+                            time.sleep(wait)
+                            continue
+                    raise retry_err
             
             bot_response = response.text.strip()
             

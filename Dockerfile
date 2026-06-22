@@ -17,8 +17,8 @@ WORKDIR /app
 COPY AI-ML/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Auto-update yt-dlp to latest version (critical for YouTube bypass)
-RUN pip install -U --no-cache-dir "yt-dlp[default]"
+# Auto-update yt-dlp to latest stable version (critical for YouTube bypass)
+RUN pip install --no-cache-dir -U "yt-dlp[default]" --force-reinstall
 
 COPY BACKEND/src ./src
 COPY AI-ML /AI-ML

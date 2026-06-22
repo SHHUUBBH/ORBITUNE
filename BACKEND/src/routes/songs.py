@@ -79,5 +79,13 @@ def post_song_from_youtube(payload: CreateFromYouTubeRequest) -> Song:
         return song
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except RuntimeError as exc:
+        detail = str(exc)
+        if "Download failed" in detail:
+            raise HTTPException(
+                status_code=503,
+                detail="YouTube download is currently unavailable from our server. Try using demo tracks or upload your own audio files."
+            ) from exc
+        raise HTTPException(status_code=500, detail=detail) from exc
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=500, detail="Failed to process song") from exc
