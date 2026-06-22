@@ -112,6 +112,33 @@ YOUTUBE_RETRY_SLEEP = 2  # seconds between retries
 # Set via environment variable YOUTUBE_COOKIES_PATH or place cookies.txt in STORAGE/
 YOUTUBE_COOKIES_PATH = os.environ.get('YOUTUBE_COOKIES_PATH', str(STORAGE_DIR / 'cookies.txt'))
 
+# Auto-download cookies.txt from Supabase on startup
+def _download_cookies_from_supabase():
+    """Download cookies.txt from Supabase storage if not present locally."""
+    import requests as _req
+    if os.path.exists(YOUTUBE_COOKIES_PATH):
+        print(f"[OK] YouTube cookies already present: {YOUTUBE_COOKIES_PATH}")
+        return
+    supabase_url = os.environ.get('SUPABASE_URL', 'https://knsvfyoaggnyvtniitxp.supabase.co')
+    supabase_key = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtuc3ZmeW9hZ2dueXZ0bmlpdHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNzg4ODksImV4cCI6MjA5Njk1NDg4OX0.u64VGTGR8sh2Tqk-7XVpXOttx8r2azZklolUS3wlr80')
+    cookie_url = f"{supabase_url}/storage/v1/object/public/orbitune-audio/cookies.txt"
+    try:
+        print(f"[YTDL] Downloading cookies.txt from Supabase...")
+        resp = _req.get(cookie_url, timeout=30, headers={
+            'Authorization': f'Bearer {supabase_key}',
+        })
+        if resp.status_code == 200 and len(resp.content) > 50:
+            os.makedirs(os.path.dirname(YOUTUBE_COOKIES_PATH), exist_ok=True)
+            with open(YOUTUBE_COOKIES_PATH, 'wb') as f:
+                f.write(resp.content)
+            print(f"[OK] Cookies downloaded ({len(resp.content)} bytes): {YOUTUBE_COOKIES_PATH}")
+        else:
+            print(f"[WARN] Cookies download failed (status={resp.status_code}, size={len(resp.content)})")
+    except Exception as e:
+        print(f"[WARN] Could not download cookies from Supabase: {e}")
+
+_download_cookies_from_supabase()
+
 # Rate limiting: seconds to wait between YouTube requests (prevents IP bans)
 YOUTUBE_RATE_LIMIT_DELAY = 5  # seconds between downloads
 
