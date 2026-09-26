@@ -86,7 +86,7 @@ export const WelcomeNoticeModal: React.FC<WelcomeNoticeModalProps> = ({
               <div className="text-xs sm:text-sm text-foreground/90 font-electrolize leading-relaxed">
                 <p className="font-semibold text-primary mb-1">Preview & Demo Notice</p>
                 <p>
-                  The personal library and live AI chatbot features are currently offline in this web preview.
+                  As this is the sole research based prototype, the personal library, on spot search songs and converting into 3D experience pipeline and live AI chatbot features are temporarily offline in this web preview.
                 </p>
                 <p className="mt-1.5 text-muted-foreground">
                   You can enjoy listening to all our curated <span className="text-primary font-semibold">3D Spatial demo tracks</span> right here in the dashboard!
