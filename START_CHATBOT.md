@@ -127,7 +127,7 @@ cat "D:\YUVRAJ\YUVRAJ PROJECTS\ORBITUNE_front\ORBITUNE\.env"
 
 Make sure it contains:
 ```
-GEMINI_API_KEY=AIzaSyDezZ6Egk35D7DUiJEkp9DEjbDhQZCNYwE
+GEMINI_API_KEY=AIza*********************************uI
 ```
 
 ### Port 8000 already in use?
