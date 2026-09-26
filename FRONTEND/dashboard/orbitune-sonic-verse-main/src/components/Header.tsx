@@ -75,7 +75,7 @@ const Header = () => {
             variant="ghost"
             size="icon"
             className="rounded-full h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10"
-            onClick={() => window.location.href = (import.meta.env.VITE_HOMEPAGE_URL || 'http://localhost:3000')}
+            onClick={() => window.location.href = (import.meta.env.VITE_HOMEPAGE_URL || 'https://orbitune.vercel.app')}
             title="Go to Homepage"
           >
             <Home className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5" />
