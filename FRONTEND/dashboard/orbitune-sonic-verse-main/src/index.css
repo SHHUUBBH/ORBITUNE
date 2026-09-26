@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* ORBITUNE - Cosmic 3D Music Platform Theme (Dark Mode) */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Vibrant coral primary */
+    --primary: 6 100% 69%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Electric purple secondary */
+    --secondary: 249 100% 69%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Golden yellow accent */
+    --accent: 48 100% 59%;
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 10%;
+    --ring: 6 100% 69%;
+
+    --radius: 1rem;
+
+    /* Gradient tokens */
+    --gradient-cosmic: linear-gradient(135deg, hsl(6 100% 69%), hsl(249 100% 69%), hsl(48 100% 59%));
+    --gradient-orbital: linear-gradient(180deg, hsl(0 0% 0%), hsl(249 80% 10%));
+    --gradient-glow: radial-gradient(circle at center, hsl(6 100% 69% / 0.3), transparent 70%);
+
+    /* Shadows */
+    --shadow-neon: 0 0 30px hsl(6 100% 69% / 0.5);
+    --shadow-soft: 0 10px 40px hsl(0 0% 0% / 0.5);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Font families (matching homepage) */
+    --font-orbitron: 'Orbitron', sans-serif;
+    --font-electrolize: 'Electrolize', sans-serif;
+  }
+
+  .light {
+    /* ORBITUNE - Light Mode Theme */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%; /* Black text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%; /* Black text on cards */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%; /* Black text in popovers */
+
+    /* Vibrant coral primary */
+    --primary: 6 100% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Electric purple secondary */
+    --secondary: 249 100% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Golden yellow accent */
+    --accent: 48 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 30%; /* Darker muted text */
+
+    --destructive: 0 84.2% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%; /* Darker borders */
+    --input: 0 0% 95%;
+    --ring: 6 100% 60%;
+
+    /* Gradient tokens for light mode */
+    --gradient-cosmic: linear-gradient(135deg, hsl(6 100% 60%), hsl(249 100% 60%), hsl(48 100% 50%));
+    --gradient-orbital: linear-gradient(180deg, hsl(0 0% 98%), hsl(249 80% 90%));
+    --gradient-glow: radial-gradient(circle at center, hsl(6 100% 60% / 0.2), transparent 70%);
+
+    /* Shadows for light mode */
+    --shadow-neon: 0 0 30px hsl(6 100% 60% / 0.3);
+    --shadow-soft: 0 10px 40px hsl(0 0% 0% / 0.1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-electrolize);
+  }
+
+  /* Dark mode background */
+  body {
+    background: radial-gradient(ellipse at top, hsl(249 80% 10%), hsl(0 0% 0%));
+    background-attachment: fixed;
+  }
+
+  /* Light mode background */
+  .light body {
+    background: radial-gradient(ellipse at top, hsl(249 80% 95%), hsl(0 0% 98%));
+    background-attachment: fixed;
+  }
+
+  /* Cosmic background stars - only in dark mode */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, white, transparent),
+      radial-gradient(2px 2px at 60% 70%, white, transparent),
+      radial-gradient(1px 1px at 50% 50%, white, transparent),
+      radial-gradient(1px 1px at 80% 10%, white, transparent),
+      radial-gradient(2px 2px at 90% 60%, white, transparent),
+      radial-gradient(1px 1px at 33% 80%, white, transparent);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    animation: twinkle 20s ease-in-out infinite;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Hide stars in light mode */
+  .light body::before {
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+
+    0%,
+    100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+}
+
+@layer components {
+
+  /* Glassmorphism effect */
+  .glass {
+    @apply backdrop-blur-xl bg-card/40 border border-white/10;
+  }
+
+  /* Light mode glass effects with better contrast */
+  .light .glass {
+    @apply bg-white/90 border-2 border-gray-800/30 shadow-lg;
+  }
+
+  .glass-strong {
+    @apply backdrop-blur-2xl bg-card/60 border border-white/20;
+  }
+
+  .light .glass-strong {
+    @apply bg-white/95 border-2 border-gray-900/40 shadow-xl;
+  }
+
+  /* Neon glow effects */
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
+  }
+
+  .light .glow-primary {
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.3), 0 2px 10px hsl(var(--primary) / 0.2);
+  }
+
+  .glow-secondary {
+    box-shadow: 0 0 20px hsl(var(--secondary) / 0.5), 0 0 40px hsl(var(--secondary) / 0.3);
+  }
+
+  .light .glow-secondary {
+    box-shadow: 0 4px 20px hsl(var(--secondary) / 0.3), 0 2px 10px hsl(var(--secondary) / 0.2);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.5), 0 0 40px hsl(var(--accent) / 0.3);
+  }
+
+  .light .glow-accent {
+    box-shadow: 0 4px 20px hsl(var(--accent) / 0.4), 0 2px 10px hsl(var(--accent) / 0.2);
+  }
+
+  /* Orbital animations */
+  .orbit-slow {
+    animation: orbit 30s linear infinite;
+  }
+
+  .orbit-medium {
+    animation: orbit 20s linear infinite;
+  }
+
+  .orbit-fast {
+    animation: orbit 10s linear infinite;
+  }
+
+  @keyframes orbit {
+    from {
+      transform: rotate(0deg) translateX(100px) rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg) translateX(100px) rotate(-360deg);
+    }
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: var(--gradient-cosmic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+    }
+
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.8), 0 0 60px hsl(var(--primary) / 0.5);
+    }
+  }
+
+  /* Spin animation for rotating album art */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

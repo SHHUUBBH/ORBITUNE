@@ -1,0 +1,12 @@
+{
+    "name": "orbitune-frontend-root",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"cd ./orbitune-homepage && npm run dev\" \"cd ./dashboard/orbitune-sonic-verse-main && npm run dev\"",
+        "install-all": "npm --prefix ./orbitune-homepage install --legacy-peer-deps && npm --prefix ./dashboard/orbitune-sonic-verse-main install --legacy-peer-deps"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.0"
+    }
+}

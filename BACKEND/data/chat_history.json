@@ -1,0 +1,976 @@
+{
+  "conversations": {
+    "default-user": [
+      {
+        "id": "99888cc7fa61",
+        "message": "i am very sad",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:23:36.280716",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "fa4d7c73e8af",
+        "message": "Oh for sure, sad energy! Let's find something that matches",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:23:36.281250",
+        "metadata": {}
+      },
+      {
+        "id": "59676c624398",
+        "message": "i am very depressed please give me some songs to relieve me",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:24:03.070916",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "17d492f6ae07",
+        "message": "Oh for sure, sad energy! Let's find something that matches",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:24:03.072758",
+        "metadata": {}
+      },
+      {
+        "id": "5a948b793d63",
+        "message": "Hey! I just finished my exams and I'm exhausted but happy!",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:28:09.978951",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "f50d5fd85763",
+        "message": "Yo! How's it going? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:28:09.980034",
+        "metadata": {}
+      },
+      {
+        "id": "ae0f272f972d",
+        "message": "suggest me songs please",
+        "sender": "user",
+        "intent": "hybrid",
+        "timestamp": "2025-11-22T16:30:28.662682",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "hybrid",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "609c7c2402e9",
+        "message": "Afternoon vibes! Here's something to keep you going \ud83c\udfb5",
+        "sender": "bot",
+        "intent": "hybrid",
+        "timestamp": "2025-11-22T16:30:28.664202",
+        "metadata": {
+          "song_results": [
+            {
+              "id": "2669cdc6fd87",
+              "title": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "artist": "YRF",
+              "album": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "duration": 248,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2669cdc6fd87.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/2669cdc6fd87/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-21T08:34:06.069864",
+              "updatedAt": "2025-11-21T08:34:06.069864"
+            },
+            {
+              "id": "df56464f5175",
+              "title": "Aditya Rikhari - Paaro (Official Video)",
+              "artist": "Aditya Rikhari",
+              "album": "Aditya Rikhari - Paaro (Official Video)",
+              "duration": 218,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/df56464f5175.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/df56464f5175/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T07:23:25.159405",
+              "updatedAt": "2025-11-22T07:23:25.159405"
+            },
+            {
+              "id": "c37007570d1a",
+              "title": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "artist": "Sony Music India",
+              "album": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "duration": 127,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/c37007570d1a.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/c37007570d1a/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2016,
+              "createdAt": "2025-11-22T08:09:43.803012",
+              "updatedAt": "2025-11-22T08:09:43.803012"
+            },
+            {
+              "id": "d3cf54ee15ca",
+              "title": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "artist": "Mr. BALI",
+              "album": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "duration": 163,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/d3cf54ee15ca.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/d3cf54ee15ca/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-22T08:56:59.516852",
+              "updatedAt": "2025-11-22T08:56:59.517359"
+            },
+            {
+              "id": "0951e67dd6c8",
+              "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "artist": "T-Series",
+              "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "duration": 132,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T10:06:51.251801",
+              "updatedAt": "2025-11-22T10:06:51.252326"
+            }
+          ]
+        }
+      },
+      {
+        "id": "3a7ca1a7fb96",
+        "message": "the song is good?",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:30:55.534810",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "23d511fb08ea",
+        "message": "Honestly same! Music just hits different \ud83d\udd25",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-22T16:30:55.535358",
+        "metadata": {}
+      },
+      {
+        "id": "726c21998b87",
+        "message": "i am a bit moody now",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:10:49.514555",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "27aa4f433f49",
+        "message": "Honestly same! Music just hits different \ud83d\udd25",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:10:49.516545",
+        "metadata": {}
+      },
+      {
+        "id": "4b1b67479f6b",
+        "message": "hey i am feeling energetic today",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:25:09.545525",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "4b6d1d92a733",
+        "message": "Hey! What's up? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:25:09.546523",
+        "metadata": {}
+      },
+      {
+        "id": "1b9d22ecd351",
+        "message": "searching for something energetic",
+        "sender": "user",
+        "intent": "hybrid",
+        "timestamp": "2025-11-23T12:25:25.705377",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "hybrid",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "d43f0ff7ead8",
+        "message": "Yo! Feeling that energy! \ud83d\ude0e What kinda energetic vibe are we talking? Like, pump-up-the-volume energetic, or chill-but-bouncy energetic? \ud83c\udfa7",
+        "sender": "bot",
+        "intent": "hybrid",
+        "timestamp": "2025-11-23T12:25:25.706362",
+        "metadata": {
+          "song_results": [
+            {
+              "id": "2669cdc6fd87",
+              "title": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "artist": "YRF",
+              "album": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "duration": 248,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2669cdc6fd87.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/2669cdc6fd87/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-21T08:34:06.069864",
+              "updatedAt": "2025-11-21T08:34:06.069864"
+            },
+            {
+              "id": "df56464f5175",
+              "title": "Aditya Rikhari - Paaro (Official Video)",
+              "artist": "Aditya Rikhari",
+              "album": "Aditya Rikhari - Paaro (Official Video)",
+              "duration": 218,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/df56464f5175.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/df56464f5175/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T07:23:25.159405",
+              "updatedAt": "2025-11-22T07:23:25.159405"
+            },
+            {
+              "id": "c37007570d1a",
+              "title": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "artist": "Sony Music India",
+              "album": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "duration": 127,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/c37007570d1a.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/c37007570d1a/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2016,
+              "createdAt": "2025-11-22T08:09:43.803012",
+              "updatedAt": "2025-11-22T08:09:43.803012"
+            },
+            {
+              "id": "d3cf54ee15ca",
+              "title": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "artist": "Mr. BALI",
+              "album": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "duration": 163,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/d3cf54ee15ca.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/d3cf54ee15ca/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-22T08:56:59.516852",
+              "updatedAt": "2025-11-22T08:56:59.517359"
+            },
+            {
+              "id": "0951e67dd6c8",
+              "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "artist": "T-Series",
+              "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "duration": 132,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T10:06:51.251801",
+              "updatedAt": "2025-11-22T10:06:51.252326"
+            }
+          ]
+        }
+      },
+      {
+        "id": "990993c43017",
+        "message": "suggest songs different from my library",
+        "sender": "user",
+        "intent": "hybrid",
+        "timestamp": "2025-11-23T12:26:14.868501",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "hybrid",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "1467ee4a4f26",
+        "message": "Afternoon vibes! Here's something to keep you going \ud83c\udfb5",
+        "sender": "bot",
+        "intent": "hybrid",
+        "timestamp": "2025-11-23T12:26:14.869526",
+        "metadata": {
+          "song_results": [
+            {
+              "id": "2669cdc6fd87",
+              "title": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "artist": "YRF",
+              "album": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "duration": 248,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2669cdc6fd87.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/2669cdc6fd87/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-21T08:34:06.069864",
+              "updatedAt": "2025-11-21T08:34:06.069864"
+            },
+            {
+              "id": "df56464f5175",
+              "title": "Aditya Rikhari - Paaro (Official Video)",
+              "artist": "Aditya Rikhari",
+              "album": "Aditya Rikhari - Paaro (Official Video)",
+              "duration": 218,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/df56464f5175.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/df56464f5175/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T07:23:25.159405",
+              "updatedAt": "2025-11-22T07:23:25.159405"
+            },
+            {
+              "id": "c37007570d1a",
+              "title": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "artist": "Sony Music India",
+              "album": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "duration": 127,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/c37007570d1a.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/c37007570d1a/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2016,
+              "createdAt": "2025-11-22T08:09:43.803012",
+              "updatedAt": "2025-11-22T08:09:43.803012"
+            },
+            {
+              "id": "d3cf54ee15ca",
+              "title": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "artist": "Mr. BALI",
+              "album": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "duration": 163,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/d3cf54ee15ca.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/d3cf54ee15ca/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-22T08:56:59.516852",
+              "updatedAt": "2025-11-22T08:56:59.517359"
+            },
+            {
+              "id": "0951e67dd6c8",
+              "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "artist": "T-Series",
+              "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "duration": 132,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T10:06:51.251801",
+              "updatedAt": "2025-11-22T10:06:51.252326"
+            }
+          ]
+        }
+      },
+      {
+        "id": "c67ac3d12665",
+        "message": "can u tell who are u exactly",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:26:55.640620",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "004383928213",
+        "message": "Yo, I'm ORBITUNE's AI music buddy! Just here to help you find some bangers, you know? \ud83d\ude0e What's the vibe today?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:26:55.641628",
+        "metadata": {}
+      },
+      {
+        "id": "3087c72aba5c",
+        "message": "i am in good mood today, feeling like in best morning at best place",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:27:36.651871",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "9a83d8f56f6f",
+        "message": "Yooo, that's the spirit! \u2728 Feeling like you're on top of the world, huh? I got you. How about \"Walking on Sunshine\" by Katrina & The Waves? It's a total classic to keep that good vibe going! \ud83d\udcaf",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:27:36.652869",
+        "metadata": {}
+      },
+      {
+        "id": "4bd23f249ec6",
+        "message": "i want something so that i could workout unbeatably",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:26:55.612783",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "da37d5b28723",
+        "message": "Dude, \"unbeatably\"?! I love that energy! \ud83d\udcaa For a workout that's gonna crush it, you NEED something intense. How about \"Till I Collapse\" by Eminem? Absolute FIRE to push you through those last reps! \ud83d\udd25",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:26:55.615294",
+        "metadata": {}
+      },
+      {
+        "id": "c688d65ebbbf",
+        "message": "yes give me this",
+        "sender": "user",
+        "intent": "search",
+        "timestamp": "2025-11-23T14:27:11.890695",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 1,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "2f7bc7304df9",
+        "message": "Hmm, couldn't find anything for 'yes give this' \ud83e\udd14 Try something else? Or describe the vibe you want!",
+        "sender": "bot",
+        "intent": "search",
+        "timestamp": "2025-11-23T14:27:11.892695",
+        "metadata": {}
+      },
+      {
+        "id": "5fb4d00632da",
+        "message": "hey, who are you",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:57:11.277682",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 1,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "d76a2c1c0909",
+        "message": "Yo! How's it going? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:57:11.278686",
+        "metadata": {}
+      },
+      {
+        "id": "81f4d263c40c",
+        "message": "who are u?",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:57:21.205687",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "b4ec230cc191",
+        "message": "Dude, we've been vibing! I'm ORBITUNE's AI music buddy - here to find the PERFECT soundtrack for your day! \ud83c\udfa7 What's on your mind today? Feeling like some tunes? \ud83d\ude0e",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:57:21.207211",
+        "metadata": {}
+      },
+      {
+        "id": "887309c94209",
+        "message": "no i am good",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:57:39.716776",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "5ff7d40f5a88",
+        "message": "Aight, cool, man! Just chilling then? \ud83d\ude0e If you change your mind, I'm ALWAYS ready to drop some bangers. Just let me know! \ud83c\udfb5",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T14:57:39.719308",
+        "metadata": {}
+      },
+      {
+        "id": "cbadb7ce213d",
+        "message": "WHO ARE U AND WHAT ARE U CAPABLE OF?",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-24T13:14:06.035918",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "359be8123283",
+        "message": "Yo, again! \ud83d\ude02 I'm ORBITUNE's AI music buddy, remember? I'm capable of finding the perfect songs based on your mood, what you're doing, anything! Just tell me the vibe and I gotchu! \ud83c\udfa7 What's up?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-24T13:14:06.037912",
+        "metadata": {}
+      },
+      {
+        "id": "d0855baf3a86",
+        "message": "I AM HAPPY TODAY?",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-24T13:14:48.741877",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "0bbbf613a2e4",
+        "message": "I feel you on that happy vibe! \ud83c\udfb5",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-24T13:14:48.744865",
+        "metadata": {}
+      },
+      {
+        "id": "3465593ffd56",
+        "message": "hey, i am sad i got into a fight with my colleague",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-28T11:03:03.986072",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "195c08326b24",
+        "message": "Morning dude! Ready for some tunes? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-28T11:03:03.989074",
+        "metadata": {}
+      },
+      {
+        "id": "20dfc30baa78",
+        "message": "hey, i am sad i got into a fight with my colleague",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-28T11:03:48.902747",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "3c4bc37c71f6",
+        "message": "Yo good morning! \u2600\ufe0f What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-28T11:03:48.904738",
+        "metadata": {}
+      },
+      {
+        "id": "e33b40422b01",
+        "message": "TODAY WAS MY VIVA AND WENT NOT WELL",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-12-01T12:42:54.797245",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "da81d9b5c396",
+        "message": "Yoo that's dope! Tell me more \u2728",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-12-01T12:42:54.801255",
+        "metadata": {}
+      },
+      {
+        "id": "0e7c28939795",
+        "message": "SUGGEST ME SOME RELATED SONGS",
+        "sender": "user",
+        "intent": "hybrid",
+        "timestamp": "2025-12-01T12:43:08.518340",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "hybrid",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "2fad461424f5",
+        "message": "On it! Searching for some fire tracks \ud83d\udd25",
+        "sender": "bot",
+        "intent": "hybrid",
+        "timestamp": "2025-12-01T12:43:08.521497",
+        "metadata": {
+          "song_results": [
+            {
+              "id": "2669cdc6fd87",
+              "title": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "artist": "YRF",
+              "album": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "duration": 248,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2669cdc6fd87.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/2669cdc6fd87/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-21T08:34:06.069864",
+              "updatedAt": "2025-11-21T08:34:06.069864"
+            },
+            {
+              "id": "df56464f5175",
+              "title": "Aditya Rikhari - Paaro (Official Video)",
+              "artist": "Aditya Rikhari",
+              "album": "Aditya Rikhari - Paaro (Official Video)",
+              "duration": 218,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/df56464f5175.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/df56464f5175/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T07:23:25.159405",
+              "updatedAt": "2025-11-22T07:23:25.159405"
+            },
+            {
+              "id": "c37007570d1a",
+              "title": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "artist": "Sony Music India",
+              "album": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "duration": 127,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/c37007570d1a.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/c37007570d1a/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2016,
+              "createdAt": "2025-11-22T08:09:43.803012",
+              "updatedAt": "2025-11-22T08:09:43.803012"
+            },
+            {
+              "id": "d3cf54ee15ca",
+              "title": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "artist": "Mr. BALI",
+              "album": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "duration": 163,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/d3cf54ee15ca.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/d3cf54ee15ca/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-22T08:56:59.516852",
+              "updatedAt": "2025-11-22T08:56:59.517359"
+            },
+            {
+              "id": "0951e67dd6c8",
+              "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "artist": "T-Series",
+              "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "duration": 132,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T10:06:51.251801",
+              "updatedAt": "2025-11-22T10:06:51.252326"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ff095145048e",
+        "message": "HEY",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-12-16T13:42:21.916776",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "e4901cc36a7c",
+        "message": "Hey! What's up? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-12-16T13:42:21.919775",
+        "metadata": {}
+      }
+    ],
+    "test_user_123": [
+      {
+        "id": "e66939396d69",
+        "message": "Hey what's up?",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:08:46.451016",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "e66939396d69",
+        "message": "Hey! What's up? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:08:46.451016",
+        "metadata": {}
+      },
+      {
+        "id": "81eb899e70da",
+        "message": "I'm feeling happy today!",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:08:48.088853",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "a5bbfeb10157",
+        "message": "Yooo, happy vibes are the best vibes! \ud83d\ude0e Let's keep that energy going! You gotta blast \"Walking on Sunshine\" by Katrina & The Waves. Absolute classic, guaranteed to make you smile! \u2600\ufe0f\ud83c\udfb5\ud83d\udcaf",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:08:48.089871",
+        "metadata": {}
+      },
+      {
+        "id": "663d1d7fa61e",
+        "message": "Hey what's up?",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:09:28.151060",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "question",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "21a167750e5d",
+        "message": "Yo! How's it going? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:09:28.152061",
+        "metadata": {}
+      },
+      {
+        "id": "b604334ee663",
+        "message": "I'm feeling happy today!",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:09:29.595267",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "bf9f7e8f728a",
+        "message": "Dude, happy is where it's at! \u2728 Let's keep that good mood rollin'! Since you're feelin' good, you HAVE to check out \"Good as Hell\" by Lizzo. That song is pure sunshine in audio form! \ud83d\udd25\u2600\ufe0f",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:09:29.596276",
+        "metadata": {}
+      },
+      {
+        "id": "5a03641a4e07",
+        "message": "Play something chill",
+        "sender": "user",
+        "intent": "hybrid",
+        "timestamp": "2025-11-23T12:09:34.199951",
+        "metadata": {
+          "method": "keyword_check",
+          "keywords_found": [],
+          "pattern_match": "hybrid",
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "0b5594472a63",
+        "message": "Alright dude, chill vibes incoming! \ud83d\ude0e Since it's afternoon, how about \"Watermark\" by Enya? Super mellow and perfect for just zoning out. \ud83c\udfa7 Let me know what you think!",
+        "sender": "bot",
+        "intent": "hybrid",
+        "timestamp": "2025-11-23T12:09:34.200992",
+        "metadata": {
+          "song_results": [
+            {
+              "id": "2669cdc6fd87",
+              "title": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "artist": "YRF",
+              "album": "Saiyaara Title Song | Ahaan Panday, Aneet Padda | Tanishk Bagchi, Faheem A, Arslan N | Irshad Kamil",
+              "duration": 248,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/2669cdc6fd87.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/2669cdc6fd87/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-21T08:34:06.069864",
+              "updatedAt": "2025-11-21T08:34:06.069864"
+            },
+            {
+              "id": "df56464f5175",
+              "title": "Aditya Rikhari - Paaro (Official Video)",
+              "artist": "Aditya Rikhari",
+              "album": "Aditya Rikhari - Paaro (Official Video)",
+              "duration": 218,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/df56464f5175.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/df56464f5175/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T07:23:25.159405",
+              "updatedAt": "2025-11-22T07:23:25.159405"
+            },
+            {
+              "id": "c37007570d1a",
+              "title": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "artist": "Sony Music India",
+              "album": "Bolna - Kapoor & Sons | Sidharth Malhotra | Alia Bhatt | Arijit Singh | Asees | Tanishk",
+              "duration": 127,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/c37007570d1a.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/c37007570d1a/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2016,
+              "createdAt": "2025-11-22T08:09:43.803012",
+              "updatedAt": "2025-11-22T08:09:43.803012"
+            },
+            {
+              "id": "d3cf54ee15ca",
+              "title": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "artist": "Mr. BALI",
+              "album": "SAD GAANA (Animated Video) | BALI | AN1K8T | KALA KHATTA EP",
+              "duration": 163,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/d3cf54ee15ca.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/d3cf54ee15ca/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2025,
+              "createdAt": "2025-11-22T08:56:59.516852",
+              "updatedAt": "2025-11-22T08:56:59.517359"
+            },
+            {
+              "id": "0951e67dd6c8",
+              "title": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "artist": "T-Series",
+              "album": "TU (Official Music Video): TALWIINDER | JACKIE SHROFF | NEELAM KOTHARI | SANJOY | BHUSHAN KUMAR",
+              "duration": 132,
+              "thumbnail": "http://127.0.0.1:8000/media/thumbnails/0951e67dd6c8.jpg",
+              "audioUrl": "http://127.0.0.1:8000/media/spatial/0951e67dd6c8/orbitune_3d_professional.wav",
+              "genre": null,
+              "releaseYear": 2024,
+              "createdAt": "2025-11-22T10:06:51.251801",
+              "updatedAt": "2025-11-22T10:06:51.252326"
+            }
+          ]
+        }
+      }
+    ],
+    "user_123": [
+      {
+        "id": "fdd2baa8564a",
+        "message": "Hello!",
+        "sender": "user",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:14:27.003089",
+        "metadata": {
+          "method": "context_analysis",
+          "keywords_found": [],
+          "search_keywords": 0,
+          "chat_keywords": 0,
+          "detection_time_ms": 0
+        }
+      },
+      {
+        "id": "20a6ea7693f9",
+        "message": "Hey dude! What's the vibe? What are you in the mood for?",
+        "sender": "bot",
+        "intent": "chat",
+        "timestamp": "2025-11-23T12:14:27.004086",
+        "metadata": {}
+      }
+    ]
+  }
+}

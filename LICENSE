@@ -1,0 +1,240 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║              ORBITUNE PROPRIETARY LICENSE & TERMS OF USE                     ║
+║                                                                              ║
+║                            VERSION: 1.0                                      ║
+║                      EFFECTIVE DATE: December 2025                           ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+COPYRIGHT HOLDERS (Hereinafter "The Licensors"):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  👤 Yuvraj Singh Kushwah
+     📧 Email: yuvrajsk.bpl@gmail.com
+     🔗 LinkedIn: https://www.linkedin.com/in/yuvraj-singh-kushwah-2b88b8366/
+     🌐 Portfolio: https://web-portfolio-yuvraj.vercel.app/
+
+  👤 Subhro Pal
+     📧 Email: shubhropal62@gmail.com
+     🔗 LinkedIn: https://www.linkedin.com/in/subhro-pal-b00a60356/
+     🌐 Portfolio: https://subhroportfolio.netlify.app
+
+PROJECT: ORBITUNE - 3D Real-like Music Experience
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  WARNING: READ CAREFULLY. THIS IS A LEGALLY BINDING AGREEMENT.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. OWNERSHIP AND INTELLECTUAL PROPERTY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The software, source code, report content, algorithms, UI design, and methodologies 
+contained within the "ORBITUNE" project are the exclusive, confidential, and 
+proprietary intellectual property of Yuvraj Singh Kushwah and Subhro Pal.
+
+This project is protected by:
+  • International Copyright Laws
+  • Trade Secret Laws
+  • Intellectual Property Treaties
+
+All rights are strictly reserved. 
+
+🚫 NO PART OF THIS PROJECT IS OPEN SOURCE.
+
+2. STRICT GRANT OF LIMITED VIEWING RIGHTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The Licensors grant the user ("You") a revocable, non-exclusive, non-transferable, 
+and limited right to VIEW the code and documentation solely for the purpose of:
+
+  ✓ Academic Verification: Verifying the authenticity of the Major Project Report 
+    submitted to Jagran Lakecity University.
+    
+  ✓ Evaluation: Assessing the technical competence of the Licensors.
+
+🚫 You are strictly PROHIBITED from:
+   • Executing, running, compiling, or deploying this software
+   • Installing dependencies or setting up development environment
+   • Testing or quality assurance activities
+   • Any form of code execution
+
+3. PROHIBITED ACTIONS (STRICT RESTRICTIONS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Under no circumstances are you permitted to:
+
+🚫 Copy or Reproduce:
+   Copy any portion of the source code, including but not limited to:
+   • The Carousel Rotation System
+   • Genre Detection Subsystem
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following components are declared TRADE SECRETS of the Licensors:
+
+🔒 Proprietary Algorithms:
+   • Dynamic Distance Variation formula:
+     distance(θ) = base_distance × (1.125 - 0.475 × cos(θ))
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If you are found in violation of this License:
+
+⚖️  IMMEDIATE TERMINATION:
+   Your rights to view this material are immediately and permanently revoked.
+
+⚖️  LEGAL ACTION:
+   The Licensors reserve the right to file a lawsuit against the infringing party for:
+   • Copyright Infringement (Civil & Criminal)
+   • Theft of Trade Secrets
+   • Breach of Contract
+   • Unfair Competition
+
+⚖️  FINANCIAL DAMAGES:
+   The Licensors will seek the MAXIMUM statutory damages allowed by law:
+   • Willful copyright infringement: Up to ₹20,00,000 (INR) or $150,000 (USD) 
+     per infringed work
+   • Trade secret misappropriation: Actual damages + unjust enrichment
+   • Legal fees and court costs
+   • Punitive damages where applicable
+
+⚖️  INJUNCTIVE RELIEF:
+   The Licensors will seek an immediate court order (injunction) to:
+   • Shut down any infringing project, website, or service
+   • Seize and destroy all unauthorized copies
+   • Prevent further distribution or use
+   • Compel public acknowledgment of infringement
+
+⚖️  CRIMINAL PROSECUTION:
+   In cases of willful infringement, the Licensors may pursue criminal charges 
+   under applicable copyright and trade secret laws.
+
+📧 To report violations or seek clarification, contact:
+   Yuvraj Singh Kushwah: yuvrajsk.bpl@gmail.com
+   Subhro Pal: shubhropal62@gmail.com
+   • Proprietary Prompt Engineering structures for Gemini AI Intent Detection
+   • User profiling algorithms
+   • Conversation memory management system
+   • Intent detection confidence scoring methodology
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS 
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+IN NO EVENT SHALL THE LICENSORS BE LIABLE FOR ANY:
+  • Direct, indirect, incidental, special, exemplary, or consequential damages
+  • Loss of profits, data, or use
+  • Business interruption
+  • Any other commercial damages or losses
+
+ARISING IN ANY WAY OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE, EVEN IF 
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+7. GOVERNING LAW AND JURISDICTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This agreement shall be governed by and construed in accordance with the laws of India.
+
+Any disputes, claims, or controversies arising from or relating to this agreement or 
+the ORBITUNE project shall be subject to the EXCLUSIVE jurisdiction of the courts in:
+
+  📍 Bhopal, Madhya Pradesh, India
+
+Both parties irrevocably submit to the jurisdiction of such courts and waive any 
+objection to proceedings in such courts on the grounds of venue or forum non conveniens.
+
+8. CONTACT INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━
+
+For licensing inquiries, permission requests, or to report violations:
+
+  👤 Yuvraj Singh Kushwah
+     📧 yuvrajsk.bpl@gmail.com
+     🔗 https://www.linkedin.com/in/yuvraj-singh-kushwah-2b88b8366/
+     🌐 https://web-portfolio-yuvraj.vercel.app/
+
+  👤 Subhro Pal
+     📧 shubhropal62@gmail.com
+     🔗 https://www.linkedin.com/in/subhro-pal-b00a60356/
+     🌐 https://subhroportfolio.netlify.app
+
+9. ACKNOWLEDGMENT
+━━━━━━━━━━━━━━━━━━━
+
+BY VIEWING, ACCESSING, OR DOWNLOADING THIS SOFTWARE, YOU ACKNOWLEDGE THAT:
+
+  ✓ You have read and understood this entire agreement
+  ✓ You agree to be bound by its terms and conditions
+  ✓ You understand the severe penalties for violation
+  ✓ You will not attempt to circumvent these restrictions
+  ✓ You recognize the proprietary nature of all components
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+© 2025 Yuvraj Singh Kushwah & Subhro Pal. All Rights Reserved.
+
+ORBITUNE™ is a trademark of Yuvraj Singh Kushwah & Subhro Pal.
+Unauthorized use of this trademark is strictly prohibited.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+END OF LICENSE
+   • Mastering chain parameters
+   • Genre-aware spatial positioning strategies
+
+🔒 System Architecture:
+   • Queue management for async processing
+   • Caching strategies for performance optimization
+   • State management patterns in MusicContext
+   • Dual-mode interface switching logic
+
+⚠️  Any disclosure, publication, or unauthorized use of these Trade Secrets is a 
+    SERIOUS violation of this agreement and will result in immediate legal action
+   Decompile, disassemble, or reverse engineer:
+   • The proprietary Audio Processing Pipeline
+   • HRTF Processing Implementation
+   • Any underlying logic or proprietary parameters
+   • Trade secret algorithms or formulas
+
+🚫 Derivative Works:
+   Create any software, website, app, or service that is:
+   • Derived from, based on, or imitates the "ORBITUNE" conversational interface
+   • Uses similar spatial audio methodology
+   • Implements comparable 3D audio rotation techniques
+   • Mimics the dual-mode (Search/Chat) interface design
+
+🚫 Commercial Use:
+   • Sell, rent, lease, license, or distribute this project
+   • Use for any commercial purpose or financial gain
+   • Incorporate into proprietary or commercial products
+   • Offer as a service (SaaS) to third parties
+
+🚫 Data Mining:
+   Extract specific data points, including:
+   • Genre Processing Profiles
+   • EQ Curves
+   • HRTF parameters
+   • AI prompt engineering structures
+   • Configuration parameters
+   For use in other machine learning models or audio engines
+
+4. PROTECTION OF TRADE SECRETS
+The following components are declared Trade Secrets of the Licensors:
+- The specific implementation of the Dynamic Distance Variation formula: $distance(0) = base\_distance \times (1.125 - 0.475 \times \cos(0))$
+- The proprietary Prompt Engineering structures used for the Gemini AI Intent Detection
+- The specific Htdemucs configuration parameters (shifts, overlap) optimized for this system
+Any disclosure, publication, or unauthorized use of these Trade Secrets is a violation of this agreement.
+
+5. PENALTIES FOR UNAUTHORIZED USE
+If you are found in violation of this License:
+- Immediate Termination: Your rights to view this material are immediately revoked.
+- Legal Action: The Licensors reserve the right to file a lawsuit against the infringing party for Copyright Infringement and Theft of Trade Secrets.
+- Damages: The Licensors will seek the maximum statutory damages allowed by law. In many jurisdictions, willful copyright infringement can result in fines of up to $150,000 per infringed work plus legal fees.
+- Injunctive Relief: The Licensors will seek an immediate court order (injunction) to shut down any project, website, or service that utilizes code or specific methodologies stolen from ORBITUNE.
+
+6. DISCLAIMER OF LIABILITY
+THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED. THE LICENSORS SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE.
+
+7. GOVERNING LAW
+This agreement shall be governed by the laws of India. Any disputes arising from this project shall be subject to the exclusive jurisdiction of the courts in Bhopal, Madhya Pradesh.
